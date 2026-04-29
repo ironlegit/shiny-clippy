@@ -30,6 +30,15 @@
         placeholder="Dump your text here..."
       ></div>
 
+      <!-- BUTTON CONTAINER PRESET -->
+      <div class="button-container">
+        <button class="redact-btn" onclick="redactNames_new()">
+          Redact Names (New)
+        </button>
+        <button class="redact-btn" onclick="redactNames()">Redact Names</button>
+        <button class="redact-btn" onclick="redactDates()">Redact Dates</button>
+      </div>
+
       <!-- REDACTION PATTERNS TEXT AREA -->
       <div
         id="redactPatterns"
@@ -37,12 +46,9 @@
         placeholder="Enter patterns to redact (one per line)."
       ></div>
 
-      <!-- BUTTON CONTAINER -->
+      <!-- BUTTON CONTAINER CUSTOM -->
       <div class="button-container">
-        <!-- REDACTION BUTTON -->
         <button class="redact-btn" onclick="redactText()">Redact Text</button>
-        <button class="redact-btn" onclick="redactNames()">Redact Names</button>
-        <button class="redact-btn" onclick="redactDates()">Redact Dates</button>
       </div>
     </div>
 
