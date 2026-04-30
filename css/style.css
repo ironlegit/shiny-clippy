@@ -182,8 +182,10 @@ h1 {
  * Holds the dark/light mode toggle button
  */
 .toggle-container {
-  text-align: center; /* Center the button */
-  margin: 20px auto; /* Space above and below, center horizontally */
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  /* z-index: 1000; */
 }
 
 /*

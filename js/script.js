@@ -10,9 +10,9 @@ function toggleDarkMode() {
   const button = document.querySelector(".toggle-btn");
 
   // Update button text based on current mode
-  button.textContent = document.body.classList.contains("dark-mode")
-    ? "Switch to Light Mode"
-    : "Switch to Dark Mode";
+  button.innerHTML = document.body.classList.contains("dark-mode")
+    ? '<i class="fa-solid fa-sun"></i>'
+    : '<i class="fa-solid fa-moon"></i>';
 }
 
 /*
