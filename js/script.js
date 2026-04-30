@@ -3,27 +3,23 @@
  * Switches between light and dark themes
  */
 function toggleDarkMode() {
-  // Toggle the 'dark-mode' class on the body element
-  // This triggers the CSS rules that change colors for dark mode
+  // Trigger the CSS rules that change colors for dark mode
   document.body.classList.toggle("dark-mode");
 
   // Get the toggle button element
   const button = document.querySelector(".toggle-btn");
 
   // Update button text based on current mode
-  // If dark mode is active, show "Switch to Light Mode"
-  // Otherwise show "Switch to Dark Mode"
   button.textContent = document.body.classList.contains("dark-mode")
     ? "Switch to Light Mode"
     : "Switch to Dark Mode";
 }
 
 /*
- * REDACT TEXT FUNCTION
- * Redacts matched patterns
+ * REDACT CUSTOM TOKENS FUNCTION
  */
 function redactText() {
-  // Get references to our text areas
+  // Get text and tokens to redact
   const clipboardText = document.getElementById("clipboardText");
   const redactPatterns = document.getElementById("redactPatterns");
 
@@ -48,24 +44,18 @@ function redactText() {
   // Escape special regex characters in each pattern
   // This prevents errors if patterns contain characters like *, +, ?, etc.
   // For example, if a pattern is "a+b", we need to escape the "+"
-  // The regex /[.*+?^${}()|[\]\\]/g finds these special characters
-  // The replace function adds a backslash before each special character
   const escapedPatterns = patterns.map((pattern) =>
     pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
   );
 
-  // Create a regex that matches any of our patterns (case insensitive)
-  // The 'gi' flags mean:
-  //   g = global (find all matches, not just the first)
-  //   i = case insensitive (match regardless of uppercase/lowercase)
+  // Create a regex that matches any of our patterns
+  // Use 'gi' flags for global (find all matches) and case insensitive
   const regex = new RegExp(escapedPatterns.join("|"), "gi");
 
-  // Replace all matches with '█████'
-  // The replace function takes a regex and a replacement string
-  // Every match will be replaced with five asterisks
+  // Redaction
   const redactedText = text.replace(regex, "█████");
 
-  // Update the clipboard text with the redacted version
+  // Update the clipboard text
   clipboardText.innerText = redactedText;
 
   // Show a confirmation message with the number of patterns redacted
@@ -74,7 +64,6 @@ function redactText() {
 
 /*
  * REDACT NAME FUNCTIONS
- * Redacts common names
  */
 // Cache for the name list (loaded once)
 let nameList = null;
@@ -109,7 +98,6 @@ async function redactNames() {
 
 /*
  * REDACT DATE FUNCTIONS
- * Redacts common names
  */
 async function redactDates() {
   const clipboardText = document.getElementById("clipboardText");
