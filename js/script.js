@@ -99,22 +99,14 @@ async function redactNames() {
 /*
  * REDACT DATE FUNCTIONS
  */
+nlp.plugin(compromiseDates);
 async function redactDates() {
   const clipboardText = document.getElementById("clipboardText");
-  let text = clipboardText.innerText;
+  const text = clipboardText.innerText;
+  const date = nlp(text).dates().out("array");
 
-  // Escape names for regex
-  const SEP = "[—\\\-/. ]?";
-  const DAY = "(3[01]|[12][0-9]|0?[1-9])";
-  const MONTH = "(1[0-2]|0?[1-9])";
-  const YEAR = "([12][0-9]{3}|[0-9]{2})";
-
-  const DMY = `${DAY}${SEP}${MONTH}${SEP}${YEAR}`;
-  const YMD = `${YEAR}${SEP}${MONTH}${SEP}${DAY}`;
-  const MDY = `${MONTH}${SEP}${DAY}${SEP}${YEAR}`;
-
-  const combined = `${DMY}|${YMD}|${MDY}`;
-  const regex = new RegExp(combined, "g");
+  const regex = new RegExp("\\b(" + date.join("|") + ")\\b", "gi");
+  console.log(regex);
 
   // Redact matches
   const redactedText = text.replace(regex, "█████");
