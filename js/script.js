@@ -62,9 +62,26 @@ function redactText() {
   // alert(`Successfully redacted ${patterns.length} pattern(s) from the text.`);
 }
 
-/*
- * REDACT NAME FUNCTIONS
- */
+/* REDACTION FUNCTIONS */
+
+function redactEntities(txt, extractFunc, replacement = "█████") {
+  const entities = extractFunc(txt);
+  console.log(entities);
+  if (entities.length === 0) return txt;
+
+  const regex = new RegExp(`\\b(${entities.join("|")})\\b`, "gi");
+  console.log(regex);
+  return txt.replace(regex, replacement);
+}
+
+// DOM Wrapper
+async function redactTxtDOM(elementId, extractFunc, replacement = "█████") {
+  const element = document.getElementById(elementId);
+  const txt = element.innerText;
+  const redactedText = redactEntities(txt, extractFunc, replacement);
+  element.innerText = redactedText;
+}
+
 // Cache for the name list (loaded once)
 let nameList = null;
 
@@ -78,37 +95,29 @@ async function loadNames() {
 }
 
 async function redactNames() {
-  const names = await loadNames(); // Load only on first click
-
-  const clipboardText = document.getElementById("clipboardText");
-  let text = clipboardText.innerText;
-
-  // Escape names for regex
-  const escapedNames = names.map((name) =>
-    name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+  const names = await loadNames();
+  await redactTxtDOM("clipboardText", (txt) =>
+    names.map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
   );
-
-  // Create regex to match whole words (case insensitive)
-  const regex = new RegExp("\\b(" + escapedNames.join("|") + ")\\b", "gi");
-
-  // Redact matches
-  const redactedText = text.replace(regex, "█████");
-  clipboardText.innerText = redactedText;
 }
 
-/*
- * REDACT DATE FUNCTIONS
- */
 nlp.plugin(compromiseDates);
 async function redactDates() {
-  const clipboardText = document.getElementById("clipboardText");
-  const text = clipboardText.innerText;
-  const date = nlp(text).dates().out("array");
+  await redactTxtDOM("clipboardText", (txt) => nlp(txt).dates().out("array"));
+}
 
-  const regex = new RegExp("\\b(" + date.join("|") + ")\\b", "gi");
-  console.log(regex);
+async function redactOrgs() {
+  await redactTxtDOM("clipboardText", (txt) =>
+    nlp(txt).organizations().out("array"),
+  );
+}
 
-  // Redact matches
-  const redactedText = text.replace(regex, "█████");
-  clipboardText.innerText = redactedText;
+async function redactEmails() {
+  await redactTxtDOM("clipboardText", (txt) => nlp(txt).emails().out("array"));
+}
+
+async function redactPhones() {
+  await redactTxtDOM("clipboardText", (txt) =>
+    nlp(txt).phoneNumbers().out("array"),
+  );
 }
