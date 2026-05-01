@@ -8,6 +8,10 @@
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -17,7 +21,7 @@
     <!-- This contains the button that switches between light and dark themes -->
     <div class="toggle-container">
       <button class="toggle-btn" onclick="toggleDarkMode()">
-        Switch to Dark Mode
+        <i class="fa-solid fa-moon"></i>
       </button>
     </div>
 
@@ -31,12 +35,17 @@
       ></div>
 
       <!-- BUTTON CONTAINER PRESET -->
-      <div class="button-container">
-        <button class="redact-btn" onclick="redactNames_new()">
-          Redact Names (New)
-        </button>
+      <div class="button-container-exp">
+        <span class="experimental-label">EXPERIMENTAL REDACTORS</span>
+        <button class="redact-btn" onclick="redactOrgs()">Redact Orgs</button>
         <button class="redact-btn" onclick="redactNames()">Redact Names</button>
         <button class="redact-btn" onclick="redactDates()">Redact Dates</button>
+        <button class="redact-btn" onclick="redactDates()">
+          Redact Phones
+        </button>
+        <button class="redact-btn" onclick="redactEmails()">
+          Redact Email
+        </button>
       </div>
 
       <!-- REDACTION PATTERNS TEXT AREA -->
@@ -48,7 +57,9 @@
 
       <!-- BUTTON CONTAINER CUSTOM -->
       <div class="button-container">
-        <button class="redact-btn" onclick="redactText()">Redact Text</button>
+        <button class="redact-btn" onclick="redactText()">
+          Redact Custom Text
+        </button>
       </div>
     </div>
 
@@ -56,7 +67,9 @@
       <span class="footer-light">Powered by Robo [【•】◡【•】]</span>
       <span class="footer-dark">Powered by Robo [【-】◡【-】] zZz</span>
     </div>
-
+    <!-- Import NLP module and JS -->
+    <script src="https://unpkg.com/compromise"></script>
+    <script src="https://unpkg.com/compromise-dates"></script>
     <script src="js/script.js"></script>
   </body>
 </html>
