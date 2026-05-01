@@ -74,16 +74,13 @@ body.dark-mode {
   color: var(--text-color); /* Update text color for dark mode */
 }
 
-/*
- * HEADER STYLES
- * Styles for the "Shiny Clippy" title at the top of the page
- */
+/* HEADER STYLES */
 h1 {
   text-align: center; /* Center the text */
   margin: 20px auto; /* Space above and below, center horizontally */
   font-family: "Press Start 2P", cursive; /* Use the pixelated retro font */
   font-variant: small-caps; /* Convert text to small caps */
-  font-size: 44px; /* Large font size */
+  font-size: 64px; /* Large font size */
   color: var(--text-color); /* Use theme-aware text color */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
   transition: color 0.3s ease; /* Smooth color transition when themes change */
