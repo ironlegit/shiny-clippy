@@ -122,7 +122,11 @@ async function redactEmails() {
 }
 
 async function redactPhones() {
-  await redactTxtDOM("clipboardText", (txt) =>
-    nlp(txt).phoneNumbers().out("array"),
-  );
+  await redactTxtDOM("clipboardText", (txt) => {
+    const captRegex =
+      /\s*(?:\+?(\d{1,4}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{3,4})(?: *x(\d+))?\s*/g;
+    const matches = txt.match(captRegex);
+    console.log(matches);
+    return matches;
+  });
 }
