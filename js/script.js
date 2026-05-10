@@ -55,6 +55,7 @@ async function redactEmails() {
   );
 }
 
+// TODO: Places ending with a point don't work, e.g. "I live in France."
 async function redactPlaces() {
   redactTxtDOM("clipboardText", (txt) =>
     replaceWords(txt, nlp(txt).places().out("array")),
@@ -85,6 +86,7 @@ function redactText() {
 // Cache for the name list (loaded once)
 let nameList = null;
 
+// TODO: International names + ignore case leads to false positives
 async function loadNames() {
   if (nameList) return nameList; // Return cached list if already loaded
 
