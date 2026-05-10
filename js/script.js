@@ -1,7 +1,4 @@
-/*
- * TOGGLE DARK MODE FUNCTION
- * Switches between light and dark themes
- */
+// TOGGLE DARK MODE FUNCTION
 function toggleDarkMode() {
   // Trigger the CSS rules that change colors for dark mode
   document.body.classList.toggle("dark-mode");
@@ -15,73 +12,74 @@ function toggleDarkMode() {
     : '<i class="fa-solid fa-moon"></i>';
 }
 
-/* REDACT CUSTOM TOKENS FUNCTION */
-function redactText() {
-  // Get text and tokens to redact
-  const clipboardText = document.getElementById("clipboardText");
-  const redactPatterns = document.getElementById("redactPatterns");
+// REDACTION FUNCTIONS
 
-  // Get the text to process from the clipboard
-  let text = clipboardText.innerText;
-
-  // Get patterns to redact (one per line)
-  // 1. Split by newlines to get each pattern
-  // 2. Trim whitespace from each pattern
-  // 3. Filter out any empty lines
-  const patterns = redactPatterns.innerText
-    .split("\n")
-    .map((pattern) => pattern.trim())
-    .filter((pattern) => pattern.length > 0);
-
-  // If no patterns were entered, show an alert and exit
-  if (patterns.length === 0) {
-    alert("Please enter patterns to redact in the box below.");
-    return;
-  }
-
-  // Escape special regex characters in each pattern
-  // This prevents errors if patterns contain characters like *, +, ?, etc.
-  // For example, if a pattern is "a+b", we need to escape the "+"
-  const escapedPatterns = patterns.map((pattern) =>
-    pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
-  );
-
-  // Create a regex that matches any of our patterns
-  // Use 'gi' flags for global (find all matches) and case insensitive
-  const regex = new RegExp(escapedPatterns.join("|"), "gi");
-
-  // Redaction
-  const redactedText = text.replace(regex, "█████");
-
-  // Update the clipboard text
-  clipboardText.innerText = redactedText;
+// DOM Wrapper - Gets text and applies redaction function
+async function redactTxtDOM(elementId, redactFunc, replacement = "█████") {
+  const element = document.getElementById(elementId);
+  element.innerText = redactFunc(element.innerText, replacement);
 }
 
-/* REDACTION FUNCTIONS */
+// Strategy 1: Use NLP-extracted entities and name lists with word boundaries
+function replaceWords(txt, words, replacement = "█████") {
+  if (words.length === 0) return txt;
 
-function redactEntities(txt, extractFunc, replacement = "█████") {
-  const entities = extractFunc(txt);
-  console.log(entities);
-  if (entities.length === 0) return txt;
+  const escaped = words.map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const regex = new RegExp(`\\b(${escaped.join("|")})\\b`, "gi");
 
-  // Escape special regex characters in each pattern
-  // This prevents errors if patterns contain characters like *, +, ?, etc.
-  // For example, if a pattern is "a+b", we need to escape the "+"
-  const escapedEntities = entities.map((pattern) =>
-    pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
-  );
-
-  const regex = new RegExp(`\\b(${escapedEntities.join("|")})\\b`, "gi");
-  console.log(regex);
   return txt.replace(regex, replacement);
 }
 
-// DOM Wrapper
-async function redactTxtDOM(elementId, extractFunc, replacement = "█████") {
-  const element = document.getElementById(elementId);
-  const txt = element.innerText;
-  const redactedText = redactEntities(txt, extractFunc, replacement);
-  element.innerText = redactedText;
+// Strategy 2: Regex-based patterns
+function replacePattern(txt, regex, replacement = "█████") {
+  return txt.replace(regex, replacement);
+}
+
+async function redactOrgs() {
+  redactTxtDOM("clipboardText", (txt) =>
+    replaceWords(txt, nlp(txt).organizations().out("array")),
+  );
+}
+
+// Custom entity level function
+nlp.plugin(compromiseDates);
+async function redactDates() {
+  redactTxtDOM("clipboardText", (txt) =>
+    replaceWords(txt, nlp(txt).dates().out("array")),
+  );
+}
+
+async function redactEmails() {
+  redactTxtDOM("clipboardText", (txt) =>
+    replaceWords(txt, nlp(txt).emails().out("array")),
+  );
+}
+
+async function redactPlaces() {
+  redactTxtDOM("clipboardText", (txt) =>
+    replaceWords(txt, nlp(txt).places().out("array")),
+  );
+}
+
+async function redactPhones() {
+  const phoneRegex =
+    /\s*(?:\+?(\d{1,4}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{3,4})(?: *x(\d+))?\s*/g;
+  redactTxtDOM("clipboardText", (txt) => replacePattern(txt, phoneRegex));
+}
+
+function redactText() {
+  const patterns = document
+    .getElementById("redactPatterns")
+    .innerText.split("\n")
+    .map((p) => p.trim())
+    .filter((p) => p.length > 0);
+
+  if (patterns.length === 0) {
+    alert("Please enter patterns to redact.");
+    return;
+  }
+
+  redactTxtDOM("clipboardText", (txt) => replaceWords(txt, patterns));
 }
 
 // Cache for the name list (loaded once)
@@ -98,35 +96,5 @@ async function loadNames() {
 
 async function redactNames() {
   const names = await loadNames();
-  await redactTxtDOM(
-    "clipboardText",
-    (txt) =>
-      // names.map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
-      names,
-  );
-}
-
-nlp.plugin(compromiseDates);
-async function redactDates() {
-  await redactTxtDOM("clipboardText", (txt) => nlp(txt).dates().out("array"));
-}
-
-async function redactOrgs() {
-  await redactTxtDOM("clipboardText", (txt) =>
-    nlp(txt).organizations().out("array"),
-  );
-}
-
-async function redactEmails() {
-  await redactTxtDOM("clipboardText", (txt) => nlp(txt).emails().out("array"));
-}
-
-async function redactPhones() {
-  await redactTxtDOM("clipboardText", (txt) => {
-    const captRegex =
-      /\s*(?:\+?(\d{1,4}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{3,4})(?: *x(\d+))?\s*/g;
-    const matches = txt.match(captRegex);
-    console.log(matches);
-    return matches;
-  });
+  redactTxtDOM("clipboardText", (txt) => replaceWords(txt, names));
 }
