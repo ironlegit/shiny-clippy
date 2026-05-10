@@ -15,9 +15,7 @@ function toggleDarkMode() {
     : '<i class="fa-solid fa-moon"></i>';
 }
 
-/*
- * REDACT CUSTOM TOKENS FUNCTION
- */
+/* REDACT CUSTOM TOKENS FUNCTION */
 function redactText() {
   // Get text and tokens to redact
   const clipboardText = document.getElementById("clipboardText");
@@ -57,9 +55,6 @@ function redactText() {
 
   // Update the clipboard text
   clipboardText.innerText = redactedText;
-
-  // Show a confirmation message with the number of patterns redacted
-  // alert(`Successfully redacted ${patterns.length} pattern(s) from the text.`);
 }
 
 /* REDACTION FUNCTIONS */
@@ -69,7 +64,14 @@ function redactEntities(txt, extractFunc, replacement = "█████") {
   console.log(entities);
   if (entities.length === 0) return txt;
 
-  const regex = new RegExp(`\\b(${entities.join("|")})\\b`, "gi");
+  // Escape special regex characters in each pattern
+  // This prevents errors if patterns contain characters like *, +, ?, etc.
+  // For example, if a pattern is "a+b", we need to escape the "+"
+  const escapedEntities = entities.map((pattern) =>
+    pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+  );
+
+  const regex = new RegExp(`\\b(${escapedEntities.join("|")})\\b`, "gi");
   console.log(regex);
   return txt.replace(regex, replacement);
 }
@@ -96,8 +98,11 @@ async function loadNames() {
 
 async function redactNames() {
   const names = await loadNames();
-  await redactTxtDOM("clipboardText", (txt) =>
-    names.map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+  await redactTxtDOM(
+    "clipboardText",
+    (txt) =>
+      // names.map((name) => name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+      names,
   );
 }
 
