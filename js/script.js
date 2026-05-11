@@ -12,6 +12,33 @@ function toggleDarkMode() {
     : '<i class="fa-solid fa-moon"></i>';
 }
 
+// REDACTION PLACEHOLDER TOGGLE LOGIC
+
+// false is block style placeholder
+let redactionPlaceholder = "false";
+
+function toggleRedactionPlaceholder() {
+  redactionPlaceholder = document.getElementById("placeholderDropdown").value;
+}
+
+const PLACEHOLDERS = {
+  name: { labelled: "[REDACTED-NAME]", block: "█████" },
+  date: { labelled: "[REDACTED-DATE]", block: "█████" },
+  email: { labelled: "[REDACTED-EMAIL]", block: "█████" },
+  phone: { labelled: "[REDACTED-PHONE]", block: "█████" },
+  org: { labelled: "[REDACTED-ORG]", block: "█████" },
+  place: { labelled: "[REDACTED-PLACE]", block: "█████" },
+  custom: { labelled: "[REDACTED-WORD]", block: "█████" },
+};
+
+function getPlaceholder(type) {
+  if (redactionPlaceholder === "false") {
+    return PLACEHOLDERS[type].block;
+  } else {
+    return PLACEHOLDERS[type].labelled;
+  }
+}
+
 // REDACTION FUNCTIONS
 
 // DOM Wrapper - Gets text and applies redaction function
@@ -37,7 +64,11 @@ function replacePattern(txt, regex, replacement = "█████") {
 
 async function redactOrgs() {
   redactTxtDOM("clipboardText", (txt) =>
-    replaceWords(txt, nlp(txt).organizations().out("array")),
+    replaceWords(
+      txt,
+      nlp(txt).organizations().out("array"),
+      getPlaceholder("org"),
+    ),
   );
 }
 
@@ -45,20 +76,20 @@ async function redactOrgs() {
 nlp.plugin(compromiseDates);
 async function redactDates() {
   redactTxtDOM("clipboardText", (txt) =>
-    replaceWords(txt, nlp(txt).dates().out("array")),
+    replaceWords(txt, nlp(txt).dates().out("array"), getPlaceholder("date")),
   );
 }
 
 async function redactEmails() {
   redactTxtDOM("clipboardText", (txt) =>
-    replaceWords(txt, nlp(txt).emails().out("array")),
+    replaceWords(txt, nlp(txt).emails().out("array"), getPlaceholder("email")),
   );
 }
 
 // TODO: Places ending with a point don't work, e.g. "I live in France."
 async function redactPlaces() {
   redactTxtDOM("clipboardText", (txt) =>
-    replaceWords(txt, nlp(txt).places().out("array")),
+    replaceWords(txt, nlp(txt).places().out("array"), getPlaceholder("place")),
   );
 }
 
@@ -66,21 +97,6 @@ async function redactPhones() {
   const phoneRegex =
     /\s*(?:\+?(\d{1,4}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{3,4})(?: *x(\d+))?\s*/g;
   redactTxtDOM("clipboardText", (txt) => replacePattern(txt, phoneRegex));
-}
-
-function redactText() {
-  const patterns = document
-    .getElementById("redactPatterns")
-    .innerText.split("\n")
-    .map((p) => p.trim())
-    .filter((p) => p.length > 0);
-
-  if (patterns.length === 0) {
-    alert("Please enter patterns to redact.");
-    return;
-  }
-
-  redactTxtDOM("clipboardText", (txt) => replaceWords(txt, patterns));
 }
 
 // Cache for the name list (loaded once)
@@ -98,5 +114,24 @@ async function loadNames() {
 
 async function redactNames() {
   const names = await loadNames();
-  redactTxtDOM("clipboardText", (txt) => replaceWords(txt, names));
+  redactTxtDOM("clipboardText", (txt) =>
+    replaceWords(txt, names, getPlaceholder("name")),
+  );
+}
+
+function redactText() {
+  const patterns = document
+    .getElementById("redactPatterns")
+    .innerText.split("\n")
+    .map((p) => p.trim())
+    .filter((p) => p.length > 0);
+
+  if (patterns.length === 0) {
+    alert("Please enter patterns to redact.");
+    return;
+  }
+
+  redactTxtDOM("clipboardText", (txt) =>
+    replaceWords(txt, patterns, getPlaceholder("custom")),
+  );
 }

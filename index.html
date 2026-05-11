@@ -42,6 +42,15 @@
         <button class="redact-btn" onclick="redactDates()">Dates</button>
         <button class="redact-btn" onclick="redactPhones()">Phones</button>
         <button class="redact-btn" onclick="redactEmails()">Emails</button>
+        <button class="redact-btn" onclick="redactPlaces()">Places</button>
+        <select
+          name="placeholderDropdown"
+          id="placeholderDropdown"
+          onchange="toggleRedactionPlaceholder()"
+        >
+          <option value="false">█████</option>
+          <option value="true">[REDACTED-WORD]</option>
+        </select>
       </div>
 
       <!-- REDACTION PATTERNS TEXT AREA -->
