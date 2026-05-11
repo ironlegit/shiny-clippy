@@ -18,7 +18,9 @@ function toggleDarkMode() {
 let redactionPlaceholder = "false";
 
 function toggleRedactionPlaceholder() {
-  redactionPlaceholder = document.getElementById("placeholderDropdown").value;
+  redactionPlaceholder = document.querySelector(
+    'input[name="placeholderMode"]:checked',
+  ).value;
 }
 
 const PLACEHOLDERS = {
