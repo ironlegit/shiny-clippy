@@ -175,6 +175,7 @@ h1 {
 }
 
 .button-container-exp {
+  flex-wrap: wrap;
   display: flex;
   align-items: center; /* Center content horizontally */
   gap: 20px; /* Space between buttons */
@@ -207,6 +208,11 @@ h1 {
   /* z-index: 1000; */
 }
 
+.placeholder-toggle {
+  width: 100%; /* forces a new line in the flex container */
+  text-align: center;
+}
+
 /*
  * BUTTON STYLES (applies to both toggle and redaction buttons)
  */
@@ -218,7 +224,7 @@ h1 {
   padding: 10px 20px; /* Internal spacing */
   border-radius: 20px; /* Rounded corners */
   font-family: "Press Start 2P", cursive; /* Match the header font */
-  font-size: 16px; /* Font size */
+  font-size: 12px; /* Font size */
   cursor: pointer; /* Show hand cursor on hover */
   transition: all 0.3s ease; /* Smooth transitions for all properties */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
