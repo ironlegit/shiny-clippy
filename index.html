@@ -19,6 +19,7 @@
 
     <!-- DARK MODE TOGGLE BUTTON CONTAINER -->
     <!-- This contains the button that switches between light and dark themes -->
+
     <div class="toggle-container">
       <button class="toggle-btn" onclick="toggleDarkMode()">
         <i class="fa-solid fa-moon"></i>
@@ -26,23 +27,31 @@
     </div>
 
     <!-- MAIN CONTENT CONTAINER -->
-    <!-- This contains the clipboard and redaction areas -->
-    <div class="main-content">
+    <div class="tab-switcher">
+      <button id="tabIn" onclick="switchToIn()">Original</button>
+      <button id="tabOut" onclick="switchToOut()">Redacted</button>
+    </div>
+  
+    <div class="clipboard-panel">
       <div
-        id="clipboardText"
+        id="clipboardIn"
         contenteditable="true"
         placeholder="Dump your text here..."
-      ></div>
+       ></div>
+      <div id="clipboardOut" contenteditable="false"></div>
+    </div>
 
       <!-- BUTTON CONTAINER PRESET -->
       <div class="button-container-exp">
-        <span class="experimental-label">EXPERIMENTAL REDACTORS</span>
+        <span class="experimental-label">THEMATIC REDACTORS</span>
         <button class="redact-btn" onclick="redactOrgs()">Orgs</button>
         <button class="redact-btn" onclick="redactNames()">Names</button>
         <button class="redact-btn" onclick="redactDates()">Dates</button>
         <button class="redact-btn" onclick="redactPhones()">Phones</button>
         <button class="redact-btn" onclick="redactEmails()">Emails</button>
         <button class="redact-btn" onclick="redactPlaces()">Places</button>
+
+        <!-- TODO: Put somewhere else -->
         <div class="placeholder-toggle" onchange="toggleRedactionPlaceholder()">
           <input
             type="radio"

@@ -12,6 +12,17 @@ function toggleDarkMode() {
     : '<i class="fa-solid fa-moon"></i>';
 }
 
+// CLIPBOARD TOGGLE IN / OUT
+function switchToOut() {
+  document.getElementById("clipboardIn").style.display = "none";
+  document.getElementById("clipboardOut").style.display = "block";
+}
+
+function switchToIn() {
+  document.getElementById("clipboardIn").style.display = "block";
+  document.getElementById("clipboardOut").style.display = "none";
+}
+
 // REDACTION PLACEHOLDER TOGGLE LOGIC
 
 // false is block style placeholder
@@ -44,9 +55,12 @@ function getPlaceholder(type) {
 // REDACTION FUNCTIONS
 
 // DOM Wrapper - Gets text and applies redaction function
-async function redactTxtDOM(elementId, redactFunc, replacement = "█████") {
-  const element = document.getElementById(elementId);
-  element.innerText = redactFunc(element.innerText, replacement);
+async function redactTxtDOM(redactFunc, replacement = "█████") {
+  const inEl = document.getElementById("clipboardIn");
+  const outEl = document.getElementById("clipboardOut");
+  const source = outEl.innerText.trim() ? outEl : inEl;
+  outEl.innerText = redactFunc(source.innerText, replacement);
+  switchToOut();
 }
 
 // Strategy 1: Use NLP-extracted entities and name lists with word boundaries
@@ -65,7 +79,7 @@ function replacePattern(txt, regex, replacement = "█████") {
 }
 
 async function redactOrgs() {
-  redactTxtDOM("clipboardText", (txt) =>
+  redactTxtDOM((txt) =>
     replaceWords(
       txt,
       nlp(txt).organizations().out("array"),
@@ -77,20 +91,20 @@ async function redactOrgs() {
 // Custom entity level function
 nlp.plugin(compromiseDates);
 async function redactDates() {
-  redactTxtDOM("clipboardText", (txt) =>
+  redactTxtDOM((txt) =>
     replaceWords(txt, nlp(txt).dates().out("array"), getPlaceholder("date")),
   );
 }
 
 async function redactEmails() {
-  redactTxtDOM("clipboardText", (txt) =>
+  redactTxtDOM((txt) =>
     replaceWords(txt, nlp(txt).emails().out("array"), getPlaceholder("email")),
   );
 }
 
 // TODO: Places ending with a point don't work, e.g. "I live in France."
 async function redactPlaces() {
-  redactTxtDOM("clipboardText", (txt) =>
+  redactTxtDOM((txt) =>
     replaceWords(txt, nlp(txt).places().out("array"), getPlaceholder("place")),
   );
 }
@@ -98,7 +112,7 @@ async function redactPlaces() {
 async function redactPhones() {
   const phoneRegex =
     /\s*(?:\+?(\d{1,4}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{3,4})(?: *x(\d+))?\s*/g;
-  redactTxtDOM("clipboardText", (txt) => replacePattern(txt, phoneRegex));
+  redactTxtDOM((txt) => replacePattern(txt, phoneRegex));
 }
 
 // Cache for the name list (loaded once)
@@ -116,9 +130,7 @@ async function loadNames() {
 
 async function redactNames() {
   const names = await loadNames();
-  redactTxtDOM("clipboardText", (txt) =>
-    replaceWords(txt, names, getPlaceholder("name")),
-  );
+  redactTxtDOM((txt) => replaceWords(txt, names, getPlaceholder("name")));
 }
 
 function redactText() {
@@ -133,7 +145,5 @@ function redactText() {
     return;
   }
 
-  redactTxtDOM("clipboardText", (txt) =>
-    replaceWords(txt, patterns, getPlaceholder("custom")),
-  );
+  redactTxtDOM((txt) => replaceWords(txt, patterns, getPlaceholder("custom")));
 }
