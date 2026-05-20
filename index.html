@@ -37,19 +37,19 @@
         id="clipboardIn"
         contenteditable="true"
         placeholder="Dump your text here..."
-       ></div>
+      ></div>
       <div id="clipboardOut" contenteditable="false"></div>
     </div>
 
-      <!-- BUTTON CONTAINER PRESET -->
-      <div class="button-container-exp">
-        <span class="experimental-label">THEMATIC REDACTORS</span>
-        <button class="redact-btn" onclick="redactOrgs()">Orgs</button>
-        <button class="redact-btn" onclick="redactNames()">Names</button>
-        <button class="redact-btn" onclick="redactDates()">Dates</button>
-        <button class="redact-btn" onclick="redactPhones()">Phones</button>
-        <button class="redact-btn" onclick="redactEmails()">Emails</button>
-        <button class="redact-btn" onclick="redactPlaces()">Places</button>
+    <!-- BUTTON CONTAINER PRESET -->
+    <div class="button-container-exp">
+      <span class="experimental-label">THEMATIC REDACTORS</span>
+      <button class="redact-btn" onclick="redactOrgs()">Orgs</button>
+      <button class="redact-btn" onclick="redactNames()">Names</button>
+      <button class="redact-btn" onclick="redactDates()">Dates</button>
+      <button class="redact-btn" onclick="redactPhones()">Phones</button>
+      <button class="redact-btn" onclick="redactEmails()">Emails</button>
+      <button class="redact-btn" onclick="redactPlaces()">Places</button>
 
       <div class="placeholder-toggle" onchange="toggleRedactionPlaceholder()">
         <input
@@ -70,20 +70,20 @@
           >Labelled</label
         >
       </div>
+    </div>
 
-      <!-- REDACTION PATTERNS TEXT AREA -->
-      <div
-        id="redactPatterns"
-        contenteditable="true"
-        placeholder="Enter patterns to redact (one per line)."
-      ></div>
+    <!-- REDACTION PATTERNS TEXT AREA -->
+    <div
+      id="redactPatterns"
+      contenteditable="true"
+      placeholder="Enter patterns to redact (one per line)."
+    ></div>
 
-      <!-- BUTTON CONTAINER CUSTOM -->
-      <div class="button-container">
-        <button class="redact-btn" onclick="redactText()">
-          Redact Custom Text
-        </button>
-      </div>
+    <!-- BUTTON CONTAINER CUSTOM -->
+    <div class="button-container">
+      <button class="redact-btn" onclick="redactText()">
+        Redact Custom Text
+      </button>
     </div>
 
     <div class="footer">
