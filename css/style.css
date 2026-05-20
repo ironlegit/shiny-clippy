@@ -244,13 +244,26 @@ h1 {
 }
 
 /* BUTTON STYLES (applies to both toggle and redaction buttons)  */
+.toggle-btn {
+  width: 40px; /* Set explicit width */
+  height: 40px; /* Set equal height */
+  border-radius: 50%; /* Makes it circular */
+  display: flex; /* Centers content inside */
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* Remove padding since we're using fixed dimensions */
+}
+
+.redact-btn {
+  border-radius: 20px; /* Rounded corners */
+  padding: 10px 20px; /* Internal spacing */
+}
+
 .toggle-btn,
 .redact-btn {
   background: var(--text-color); /* Button background matches text color */
   color: #ffffff; /* White text */
   border: none; /* No border */
-  padding: 10px 20px; /* Internal spacing */
-  border-radius: 20px; /* Rounded corners */
   font-family: "Press Start 2P", cursive;
   font-size: 12px;
   cursor: pointer; /* Show hand cursor on hover */
