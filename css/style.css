@@ -271,6 +271,83 @@ h1 {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
+/* TOOLTIPS */
+[data-tooltip] {
+  position: relative;
+  cursor: help;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  background: #333;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  margin-bottom: 8px;
+}
+
+[data-tooltip]::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #333;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  margin-bottom: 2px;
+}
+
+[data-tooltip]:hover::after,
+[data-tooltip]:hover::before {
+  opacity: 1;
+  font-size: 6px;
+}
+
+/* SIDE PANEL */
+.side-panel {
+  position: fixed; /* Stays in place even when scrolling */
+  top: 0; /* Starts at the top of the page */
+  left: 0; /* Aligns to the left edge */
+  width: 250px; /* Adjust width as needed */
+  height: 100vh; /* Spans full viewport height */
+  background: #f0f0f0; /* Light gray background (adjust as needed) */
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+  transform: translateX(-100%); /* Hide by default (off-screen) */
+  transition: transform 0.3s ease; /* Smooth slide-in animation */
+  z-index: 1000; /* Ensures it appears above other content */
+}
+
+/* Show panel when active */
+.side-panel.active {
+  transform: translateX(0); /* Slide in */
+}
+
+/* Close button styling */
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  float: right; /* Aligns to the top-right corner */
+}
+
+/* Panel content styling */
+.panel-content {
+  margin-top: 20px;
+}
+
 /* BUTTON STYLES IN DARK MODE */
 body.dark-mode .toggle-btn,
 body.dark-mode .redact-btn {
