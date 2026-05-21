@@ -17,10 +17,15 @@
   <body>
     <h1>Shiny Clippy</h1>
 
-    <!-- DARK MODE TOGGLE BUTTON CONTAINER -->
-    <!-- This contains the button that switches between light and dark themes -->
+    <!-- SIDE PANEL TOGGLE -->
+    <div class="toggle-container left">
+      <button class="toggle-btn" onclick="togglePanel()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
 
-    <div class="toggle-container">
+    <!-- DARK MODE TOGGLE BUTTON CONTAINER -->
+    <div class="toggle-container right">
       <button class="toggle-btn" onclick="toggleDarkMode()">
         <i class="fa-solid fa-moon"></i>
       </button>
@@ -43,7 +48,7 @@
         Redacted
       </button>
     </div>
-  
+
     <div class="clipboard-panel">
       <div
         id="clipboardIn"
@@ -97,6 +102,15 @@
         Redact Custom Text
       </button>
     </div>
+
+    <!-- SIDE PANEL -->
+    <aside class="side-panel">
+      <button class="close-btn" onclick="togglePanel()">×</button>
+      <div class="panel-content">
+        <h3>Panel Title</h3>
+        <p>Your content...</p>
+      </div>
+    </aside>
 
     <div class="footer">
       <span class="footer-light">Powered by Robo [【•】◡【•】]</span>

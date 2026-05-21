@@ -232,8 +232,17 @@ h1 {
 .toggle-container {
   position: fixed;
   top: 1rem;
-  right: 1rem;
   /* z-index: 1000; */
+}
+
+/* Right-aligned (default for dark mode) */
+.toggle-container.right {
+  right: 1rem;
+}
+
+/* Left-aligned (for side panel) */
+.toggle-container.left {
+  left: 1rem;
 }
 
 .placeholder-toggle {
