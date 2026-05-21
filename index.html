@@ -28,8 +28,20 @@
 
     <!-- MAIN CONTENT CONTAINER -->
     <div class="tab-switcher">
-      <button id="tabIn" onclick="switchToIn()">Original</button>
-      <button id="tabOut" onclick="switchToOut()">Redacted</button>
+      <button
+        id="tabIn"
+        onclick="switchToIn()"
+        data-tooltip="View the original text"
+      >
+        Original
+      </button>
+      <button
+        id="tabOut"
+        onclick="switchToOut()"
+        data-tooltip="View the redacted version"
+      >
+        Redacted
+      </button>
     </div>
   
     <div class="clipboard-panel">
