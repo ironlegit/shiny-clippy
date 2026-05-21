@@ -1,0 +1,66 @@
+/* BODY STYLES - LIGHT MODE */
+body {
+  padding: 20px; /* Space around the edges of the page */
+  background: var(--gradient-light); /* Use the light gradient background */
+  height: 100vh; /* Make sure the body fills the whole screen height */
+  margin: 0; /* Remove default margins */
+  font-family: Arial, sans-serif; /* Default font for the page */
+  transition: background 0.5s ease; /* Smooth transition when changing themes */
+  color: var(--theme-color); /* Default text color */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack elements vertically */
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* BODY STYLES - DARK MODE */
+body.dark-mode {
+  --theme-color: var(--theme-color-dark); /* Light text color for dark mode */
+  --clipboard-bg: var(--clipboard-bg-dark); /* Input clipboard background */
+  --clipboard-bg-out: var(
+    --clipboard-bg-dark-out
+  ); /* Output clipboard background */
+  --shadow-color: rgba(0, 0, 0, 0.3); /* Darker shadow for dark mode */
+  --border-color: #444; /* Darker border for dark mode */
+  background: var(--gradient-dark); /* Apply dark gradient background */
+  color: var(--theme-color); /* Update text color for dark mode */
+}
+
+/* HEADER STYLES */
+h1 {
+  text-align: center; /* Center the text */
+  margin: 20px auto; /* Space above and below, center horizontally */
+  font-family: "Press Start 2P", cursive; /* Use the pixelated retro font */
+  font-variant: small-caps; /* Convert text to small caps */
+  font-size: 64px; /* Large font size */
+  color: var(--theme-color); /* Use theme-aware text color */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+  transition: color 0.3s ease; /* Smooth color transition when themes change */
+}
+
+/* FOOTER STYLES */
+.footer {
+  text-align: center; /* Center the text */
+  padding: 10px; /* Internal spacing */
+  margin-top: auto; /* Push to bottom */
+  color: var(--footer-color); /* Footer text color (changes with theme) */
+  font-family: "Consolas", monospace; /* Monospace font */
+  font-size: 10px; /* Small font size */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+/* FOOTER STYLES IN DARK MODE */
+body.dark-mode .footer {
+  color: var(--footer-color-dark); /* Dark mode footer color */
+}
+
+/*FOOTER TEXT TOGGLE */
+.footer-dark {
+  display: none; /* Hide dark mode text by default */
+}
+body.dark-mode .footer-light {
+  display: none; /* Hide light mode text in dark mode */
+}
+body.dark-mode .footer-dark {
+  display: block; /* Show dark mode text in dark mode */
+}

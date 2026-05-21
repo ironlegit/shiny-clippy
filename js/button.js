@@ -4,7 +4,7 @@ function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
 
   // Get the toggle button element
-  const button = document.querySelector(".toggle-btn");
+  const button = document.querySelector("#darkmode-btn");
 
   // Update button text based on current mode
   button.innerHTML = document.body.classList.contains("dark-mode")
@@ -27,4 +27,33 @@ function switchToOut() {
 function switchToIn() {
   document.getElementById("clipboardIn").style.display = "block";
   document.getElementById("clipboardOut").style.display = "none";
+}
+
+// REDACTION PLACEHOLDER TOGGLE LOGIC
+
+// false is block style placeholder
+let redactionPlaceholder = "false";
+
+function toggleRedactionPlaceholder() {
+  redactionPlaceholder = document.querySelector(
+    'input[name="placeholderMode"]:checked',
+  ).value;
+}
+
+const PLACEHOLDERS = {
+  name: { labelled: "[REDACTED-NAME]", block: "█████" },
+  date: { labelled: "[REDACTED-DATE]", block: "█████" },
+  email: { labelled: "[REDACTED-EMAIL]", block: "█████" },
+  phone: { labelled: "[REDACTED-PHONE]", block: "█████" },
+  org: { labelled: "[REDACTED-ORG]", block: "█████" },
+  place: { labelled: "[REDACTED-PLACE]", block: "█████" },
+  custom: { labelled: "[REDACTED-WORD]", block: "█████" },
+};
+
+function getPlaceholder(type) {
+  if (redactionPlaceholder === "false") {
+    return PLACEHOLDERS[type].block;
+  } else {
+    return PLACEHOLDERS[type].labelled;
+  }
 }

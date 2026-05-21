@@ -12,21 +12,23 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/ui.css" />
   </head>
   <body>
     <h1>Shiny Clippy</h1>
 
     <!-- SIDE PANEL TOGGLE -->
     <div class="toggle-container left">
-      <button class="toggle-btn" onclick="togglePanel()">
+      <button id="sidebar-btn" class="toggle-btn" onclick="togglePanel()">
         <i class="fas fa-bars"></i>
       </button>
     </div>
 
     <!-- DARK MODE TOGGLE BUTTON CONTAINER -->
     <div class="toggle-container right">
-      <button class="toggle-btn" onclick="toggleDarkMode()">
+      <button id="darkmode-btn" class="toggle-btn" onclick="toggleDarkMode()">
         <i class="fa-solid fa-moon"></i>
       </button>
     </div>
@@ -60,33 +62,13 @@
 
     <!-- BUTTON CONTAINER PRESET -->
     <div class="button-container-exp">
-      <span class="experimental-label">THEMATIC REDACTORS</span>
+      <span class="experimental-label">THEMATIC REDACTORS (EXPERIMENTAL)</span>
       <button class="redact-btn" onclick="redactOrgs()">Orgs</button>
       <button class="redact-btn" onclick="redactNames()">Names</button>
       <button class="redact-btn" onclick="redactDates()">Dates</button>
       <button class="redact-btn" onclick="redactPhones()">Phones</button>
       <button class="redact-btn" onclick="redactEmails()">Emails</button>
       <button class="redact-btn" onclick="redactPlaces()">Places</button>
-
-      <div class="placeholder-toggle" onchange="toggleRedactionPlaceholder()">
-        <input
-          type="radio"
-          name="placeholderMode"
-          id="block"
-          value="false"
-          checked
-        />
-        <label for="block" data-tooltip="Use block-style placeholders: █████"
-          >Block</label
-        >
-
-        <input type="radio" name="placeholderMode" id="labelled" value="true" />
-        <label
-          for="labelled"
-          data-tooltip="Use labelled placeholders: [REDACTED-DATE]"
-          >Labelled</label
-        >
-      </div>
     </div>
 
     <!-- REDACTION PATTERNS TEXT AREA -->
@@ -107,8 +89,33 @@
     <aside class="side-panel">
       <button class="close-btn" onclick="togglePanel()">×</button>
       <div class="panel-content">
-        <h3>Panel Title</h3>
-        <p>Your content...</p>
+        <h2>Hyperparameters</h2>
+        <h3>Redaction Placeholder</h3>
+
+        <div class="placeholder-toggle" onchange="toggleRedactionPlaceholder()">
+          <input
+            type="radio"
+            name="placeholderMode"
+            id="block"
+            value="false"
+            checked
+          />
+          <label for="block" data-tooltip="Use block-style placeholders: █████"
+            >Block</label
+          >
+
+          <input
+            type="radio"
+            name="placeholderMode"
+            id="labelled"
+            value="true"
+          />
+          <label
+            for="labelled"
+            data-tooltip="Use labelled placeholders: [REDACTED-DATE]"
+            >Labelled</label
+          >
+        </div>
       </div>
     </aside>
 
@@ -119,7 +126,7 @@
     <!-- Import NLP module and JS -->
     <script src="https://unpkg.com/compromise"></script>
     <script src="https://unpkg.com/compromise-dates"></script>
-    <script src="js/script.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/button.js"></script>
   </body>
 </html>

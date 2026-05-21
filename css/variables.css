@@ -1,0 +1,55 @@
+/* CSS VARIABLES SECTION */
+:root {
+  --theme-color: #18011f; /* Default h1 and btn color for light mode */
+  --theme-color-dark: #f0f0f0;
+  --clipboard-bg: rgba(
+    242,
+    250,
+    247,
+    0.2
+  ); /* Semi-transparent clipboard background for light mode */
+  --clipboard-bg-out: rgba(
+    242,
+    250,
+    247,
+    0.1
+  ); /* Semi-transparent clipboard background for light mode */
+  --shadow-color: rgba(
+    0,
+    0,
+    0,
+    0.1
+  ); /* Shadow color for elements in light mode */
+  --border-color: #ccc; /* Border color for elements in light mode */
+  --gradient-light: linear-gradient(
+    135deg,
+    #eb7893,
+    #7969f0
+  ); /* Light theme gradient (pink to purple) */
+  --gradient-dark: linear-gradient(
+    135deg,
+    #1a1a2e,
+    #4a1f6c
+  ); /* Dark theme gradient (dark blue to darker blue) */
+  --clipboard-bg-dark: rgba(
+    30,
+    30,
+    40,
+    0.5
+  ); /* Semi-transparent clipboard background for dark mode */
+  --clipboard-bg-dark-out: rgba(
+    30,
+    30,
+    40,
+    0.3
+  ); /* Semi-transparent clipboard background for dark mode */
+  --footer-color: rgba(0, 0, 0, 0.7); /* Footer text color for light mode */
+  --footer-color-dark: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Footer text color for dark mode */
+  --sidebar-color: rgba(39, 36, 54, 0.98);
+  --sidebar-text-color: var(--theme-color-dark);
+}
