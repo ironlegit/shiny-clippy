@@ -21,14 +21,18 @@
   gap: 4px;
 }
 
-/* General tab button stuff */
+/* Shared tab button styles */
 .tab-switcher button {
-  border: 1px solid var(--border-color); /* Border color (changes with theme) */
-  border-bottom: none; /* active tab has no bottom border */
-  border-radius: 8px 8px 0 0; /* rounded top corners only */
+  padding: 6px 18px;
+  border: 1px solid var(--border-color);
+  border-bottom: none; /* open at the bottom toward the panel */
+  border-radius: 8px; /* rounded top corners only */
   font-family: "Courier New", monospace;
   font-size: 12px;
   color: var(--theme-color);
+  cursor: pointer;
+  background-color: var(--clipboard-bg-out); /* inactive = darker */
+  position: relative;
 }
 
 #tabIn {
