@@ -35,17 +35,18 @@
   position: relative;
 }
 
-#tabIn {
+/* Active tab blends into the panel below */
+.tab-switcher button.active {
   background-color: var(--clipboard-bg);
+  z-index: 2;
 }
 
-#tabOut {
-  background-color: var(--clipboard-bg-out);
-}
-
-.tab-switcher button.inactive {
-  background: var(--clipboard-bg-out); /* visually behind */
-  border-bottom: 1px solid var(--border-color); /* border restored */
+/* Panel area */
+.clipboard-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 /* TEXT AREA STYLES (separated for clipboard and redaction areas) */

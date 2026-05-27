@@ -22,11 +22,15 @@ function togglePanel() {
 function switchToOut() {
   document.getElementById("clipboardIn").style.display = "none";
   document.getElementById("clipboardOut").style.display = "block";
+  document.getElementById("tabIn").classList.remove("active");
+  document.getElementById("tabOut").classList.add("active");
 }
 
 function switchToIn() {
   document.getElementById("clipboardIn").style.display = "block";
   document.getElementById("clipboardOut").style.display = "none";
+  document.getElementById("tabOut").classList.remove("active");
+  document.getElementById("tabIn").classList.add("active");
 }
 
 // REDACTION PLACEHOLDER TOGGLE LOGIC
