@@ -289,7 +289,7 @@ body.dark-mode .redact-btn {
 }
 
 /* PLACEHOLDER TEXT STYLES IN TEXT FIELDS */
-#clipboardText:empty::before,
+#clipboardIn:empty::before,
 #redactPatterns:empty::before {
   content: attr(placeholder); /* Show the placeholder attribute content */
   color: #888; /* Gray color */
