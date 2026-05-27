@@ -1,20 +1,24 @@
 /* MAIN CONTENT CONTAINER */
-.clipboard-panel {
-  flex-grow: 1; /* Take up available space */
-  display: flex; /* Use flexbox for internal layout */
-  flex-direction: column; /* Stack elements vertically */
-  gap: 20px; /* Space between elements */
-  margin-bottom: 20px; /* Space before footer */
-  min-height: 0;
+.clipboard-wrapper {
+  width: calc(80% + 40px);
+  max-width: 840px;
+  margin: 0 auto;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px;
+  gap: 8px;
+  background-color: var(--clipboard-bg-out);
+  box-shadow: 0 0 15px var(--shadow-color);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* matches the old clipboard-panel flex behaviour */
+  margin-bottom: 20px;
 }
 
-/* Positioning of the div for in and output tab buttons */
+/* Tab bar sits inside the frame at the top */
 .tab-switcher {
-  position: relative;
-  top: 1px; /* overlaps the panel border by 1px */
-  width: 80%;
-  max-width: 800px;
-  margin: 0 auto;
+  display: flex;
+  gap: 4px;
 }
 
 /* General tab button stuff */
