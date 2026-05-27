@@ -34,30 +34,33 @@
     </div>
 
     <!-- MAIN CONTENT CONTAINER -->
-    <div class="tab-switcher">
-      <button
-        id="tabIn"
-        onclick="switchToIn()"
-        data-tooltip="View the original text"
-      >
-        Original
-      </button>
-      <button
-        id="tabOut"
-        onclick="switchToOut()"
-        data-tooltip="View the redacted version"
-      >
-        Redacted
-      </button>
-    </div>
+    <div class="clipboard-wrapper">
+      <div class="tab-switcher">
+        <button
+          id="tabIn"
+          onclick="switchToIn()"
+          class="active"
+          data-tooltip="View the original text"
+        >
+          Original
+        </button>
+        <button
+          id="tabOut"
+          onclick="switchToOut()"
+          data-tooltip="View the redacted version"
+        >
+          Redacted
+        </button>
+      </div>
 
-    <div class="clipboard-panel">
-      <div
-        id="clipboardIn"
-        contenteditable="true"
-        placeholder="Dump your text here..."
-      ></div>
-      <div id="clipboardOut" contenteditable="false"></div>
+      <div class="clipboard-panel">
+        <div
+          id="clipboardIn"
+          contenteditable="true"
+          placeholder="Dump your text here..."
+        ></div>
+        <div id="clipboardOut" contenteditable="false"></div>
+      </div>
     </div>
 
     <!-- BUTTON CONTAINER PRESET -->
