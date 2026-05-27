@@ -49,35 +49,33 @@
   gap: 8px;
 }
 
-/* TEXT AREA STYLES (separated for clipboard and redaction areas) */
+/* Shared text area styles */
+#clipboardIn,
 #clipboardOut {
-  display: none; /* hidden by default */
-  background-color: var(--clipboard-bg-out);
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
+  border: none;
+  border-top: 1px solid var(--border-color); /* divides tab bar from content */
+  border-radius: 8px;
+  color: var(--theme-color);
+  outline: none;
+  overflow-y: auto;
+  font-family: "Courier New", monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  transition: all 0.3s ease;
+  resize: none;
 }
 
 #clipboardIn {
   background-color: var(--clipboard-bg);
 }
 
-#clipboardIn,
 #clipboardOut {
-  flex: 1; /* grow to fill remaining space*/
-  min-height: 0; /* allow shrinking below natural size */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 0 15px var(--shadow-color); /* Shadow for depth (changes with theme) */
-  padding: 20px; /* Internal spacing */
-  margin: 0 auto; /* Center horizontally */
-  width: 80%; /* Take 80% of the width */
-  max-width: 800px; /* Maximum width */
-  border: 1px solid var(--border-color); /* Border color (changes with theme) */
-  color: var(--theme-color); /* Text color (changes with theme) */
-  outline: none; /* Remove default focus outline */
-  transition: all 0.3s ease; /* Smooth transitions for all properties */
-  resize: none; /* Disable manual resizing */
-  overflow-y: auto; /* Enable vertical scrolling if content overflows */
-  font-family: "Courier New", monospace;
-  font-size: 16px;
-  line-height: 1.5; /* Line spacing for readability */
+  display: none;
+  background-color: var(--clipboard-bg);
 }
 
 #redactPatterns {
@@ -120,7 +118,7 @@
   max-width: 800px;
   padding: 40px 20px 40px 20px; /* Add padding inside box */
   background-color: rgba(200, 200, 200, 0.15); /* Slight gray shade */
-  border-radius: 12px; /* Rounded corners */
+  border-radius: 8px; /* Rounded corners */
   position: relative; /* For positioning the label */
   font-family: "Courier New", monospace;
 }
@@ -149,7 +147,7 @@
 .toggle-container {
   position: fixed;
   top: 1rem;
-  /* z-index: 1000; */
+  z-index: 1000;
 }
 
 /* Right-aligned (default for dark mode) */
@@ -181,7 +179,7 @@
 }
 
 .redact-btn {
-  border-radius: 20px; /* Rounded corners */
+  border-radius: 8px; /* Rounded corners */
   padding: 10px 20px; /* Internal spacing */
 }
 
