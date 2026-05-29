@@ -35,6 +35,35 @@ def convert_to_pd(data: dict) -> pd.DataFrame:
     return pd.DataFrame(df)
 
 
+def extract_names(
+    n: int, cca2: list, rm_non_latin: bool = True
+) -> pd.arrays.StringArray:
+    # Extract names
+    male_names = nd.get_top_names(n=n, gender="Male", use_first_names=True)
+    male_names = convert_to_pd(male_names)
+
+    female_names = nd.get_top_names(n=n, gender="Female", use_first_names=True)
+    female_names = convert_to_pd(female_names)
+
+    lastnames = nd.get_top_names(n=n, use_first_names=False)
+    lastnames = convert_to_pd(lastnames)
+
+    all_names = pd.concat(
+        [male_names, female_names, lastnames], ignore_index=True
+    )
+    all_names_filtered = all_names.loc[all_names["country_alpha2"].isin(cca2)]
+
+    # Remove non-latin
+    if rm_non_latin:
+        all_names_filtered["is_latin"] = all_names["name"].apply(
+            lambda text: is_latin(text, latin_regex)
+        )
+        all_names_filtered = all_names_filtered[all_names_filtered["is_latin"]]
+
+    # Dedup
+    return all_names_filtered["name"].sort_values().unique()
+
+
 # Pattern: match any character NOT in Latin ranges (U+0000–U+024F)
 # TODO: Keep all extended latin chars?
 latin_regex = re.compile(r"[^\u0000-\u024F]")
@@ -44,7 +73,23 @@ def is_latin(text: str, latin_regex: re.Pattern[str]) -> bool:
     return not bool(re.search(latin_regex, text))
 
 
+def write_to_txt(names: pd.arrays.StringArray, file_name: str) -> None:
+    # Path handling
+    base = Path(__file__).resolve().parent
+    data_file = base / ".." / "data" / file_name
+    data_file = data_file.resolve()
+
+    # Write file
+    with data_file.open("w+") as file:
+        for name in names:
+            file.write(name + "\n")
+
+    print(f"Generated {len(names)} names in {data_file}!")
+
+
 # Get data ----
+
+# Top 20 Countries ----
 
 # Countries
 # Select countries  from restcountries API
@@ -72,33 +117,14 @@ countries_api_top = (
     .head(top_n_countries)["cca2"]
     .tolist()
 )
-print(countries_api_top)
-# Extract names
-male_names = nd.get_top_names(n=n, gender="Male", use_first_names=True)
-male_names = convert_to_pd(male_names)
 
-female_names = nd.get_top_names(n=n, gender="Female", use_first_names=True)
-female_names = convert_to_pd(female_names)
+print(f"Top 20 countries:\n{countries_api_top}")
 
-lastnames = nd.get_top_names(n=n, use_first_names=False)
-lastnames = convert_to_pd(lastnames)
+top_20_names = extract_names(n=3000, cca2=countries_api_top)
+write_to_txt(top_20_names, "names_top_20_countries.txt")
 
-all_names = pd.concat([male_names, female_names, lastnames], ignore_index=True)
-
-all_names_filtered = all_names.loc[
-    all_names["country_alpha2"].isin(countries_api_top)
+exit()
 ]
 
-# Remove non-latin and dedup
-all_names_filtered["is_latin"] = all_names["name"].apply(
-    lambda text: is_latin(text, latin_regex)
-)
-latin_names = all_names_filtered[all_names_filtered["is_latin"]]
-unique_names = latin_names["name"].sort_values().unique()
 
-# Write file
-with data_file.open("w+") as file:
-    for name in unique_names:
-        file.write(name + "\n")
 
-print(f"Generated {len(unique_names)} names in {data_file}!")
