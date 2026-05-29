@@ -94,7 +94,7 @@ def write_to_txt(names: pd.arrays.StringArray, file_name: str) -> None:
 # Countries
 # Select countries  from restcountries API
 # fields: https://gitlab.com/restcountries/restcountries/-/blob/master/FIELDS.md
-fields = ["cca2", "population"]
+fields = ["cca2", "population", "region", "subregion"]
 url = f"https://restcountries.com/v3.1/all?fields={','.join(fields)}"
 response = requests.get(url)
 data = response.json()
@@ -124,7 +124,31 @@ top_20_names = extract_names(n=3000, cca2=countries_api_top)
 write_to_txt(top_20_names, "names_top_20_countries.txt")
 
 exit()
+## Western names ----
+western_subregions = [
+    "Western Europe",
+    "Central Europe",
+    "Eastern Europe",
+    "North America",
+    "Central America",
 ]
 
+western_countries = countries_api[
+    countries_api["subregion"].str.contains("|".join(western_subregions))
+]["cca2"]
 
+print(western_countries)
 
+## European names ----
+european_countries = countries_api[
+    countries_api["region"].str.contains("Europe")
+]["cca2"]
+
+print(european_countries)
+exit()
+## Asian names ----
+asian_countries = countries_api[countries_api["region"].str.contains("Asia")][
+    "cca2"
+]
+
+print(asian_countries)
