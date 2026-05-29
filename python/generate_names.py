@@ -121,9 +121,8 @@ countries_api_top = (
 print(f"Top 20 countries:\n{countries_api_top}")
 
 top_20_names = extract_names(n=3000, cca2=countries_api_top)
-write_to_txt(top_20_names, "names_top_20_countries.txt")
+write_to_txt(top_20_names, "top_20_country_names.txt")
 
-exit()
 ## Western names ----
 western_subregions = [
     "Western Europe",
@@ -135,20 +134,30 @@ western_subregions = [
 
 western_countries = countries_api[
     countries_api["subregion"].str.contains("|".join(western_subregions))
-]["cca2"]
+]["cca2"].tolist()
 
-print(western_countries)
+print(f"Western countries:\n{western_countries}")
+
+western_names = extract_names(n=3000, cca2=western_countries)
+write_to_txt(western_names, "western_names.txt")
+
 
 ## European names ----
 european_countries = countries_api[
     countries_api["region"].str.contains("Europe")
-]["cca2"]
+]["cca2"].tolist()
 
-print(european_countries)
-exit()
+print(f"European countries:\n{european_countries}")
+
+european_names = extract_names(n=3000, cca2=european_countries)
+write_to_txt(european_names, "european_names.txt")
+
 ## Asian names ----
 asian_countries = countries_api[countries_api["region"].str.contains("Asia")][
     "cca2"
-]
+].tolist()
 
-print(asian_countries)
+print(f"Asian countries: {asian_countries}")
+
+asian_names = extract_names(n=3000, cca2=asian_countries)
+write_to_txt(asian_names, "asian_names.txt")
