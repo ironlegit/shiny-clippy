@@ -1,3 +1,8 @@
+// HELPER FUNCTIONS
+function flushOutput() {
+  document.getElementById("clipboardOut").textContent = "";
+}
+
 // REDACTION FUNCTIONS
 
 // DOM Wrapper - Gets text and applies redaction function
