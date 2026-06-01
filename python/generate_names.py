@@ -4,6 +4,8 @@ import requests
 from names_dataset import NameDataset
 from pathlib import Path
 
+# NOTE: Debugging for edge cases: print(NameWrapper(nd.search("A-C")).describe)
+
 # Path handling
 base = Path(__file__).resolve().parent
 data_file = base / ".." / "data" / "names.txt"
