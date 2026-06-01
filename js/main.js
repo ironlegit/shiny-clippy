@@ -8,7 +8,15 @@ function flushOutput() {
 // DOM Wrapper - Gets text and applies redaction function
 async function redactTxtDOM(redactFunc, replacement = "█████") {
   const inEl = document.getElementById("clipboardIn");
+
+  // Feels more natural
+  if (inEl.innerText.trim() === "") {
+    flushOutput();
+  }
+
   const outEl = document.getElementById("clipboardOut");
+
+  // Apply redaction on output if non-empty
   const source = outEl.innerText.trim() ? outEl : inEl;
   outEl.innerText = redactFunc(source.innerText, replacement);
   switchToOut();
