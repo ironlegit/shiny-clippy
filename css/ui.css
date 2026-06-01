@@ -13,6 +13,7 @@
   flex-direction: column;
   flex-grow: 1; /* matches the old clipboard-panel flex behaviour */
   margin-bottom: 20px;
+  position: relative;
 }
 
 /* Tab bar sits inside the frame at the top */
@@ -76,6 +77,24 @@
 #clipboardOut {
   display: none;
   background-color: var(--clipboard-bg);
+  position: relative;
+}
+
+/* COPY-PASTE BUTTON */
+#copyBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* Show on hover of the parent div */
+#clipboardOut:hover #copyBtn {
+  opacity: 1;
+}
+
+/* Keep visible briefly after clicking */
+#copyBtn.copied {
+  opacity: 1;
 }
 
 #redactPatterns {
