@@ -33,6 +33,18 @@ function switchToIn() {
   document.getElementById("tabIn").classList.add("active");
 }
 
+// COPY-PASTE BUTTON
+async function copyClipboardContent() {
+  const content = document.getElementById("clipboardOut").innerText;
+
+  await navigator.clipboard.writeText(content);
+
+  // Visual feedback
+  const btn = document.getElementById("copyBtn");
+  btn.textContent = "Copied!";
+  setTimeout(() => (btn.textContent = "Copy"), 2000);
+}
+
 // REDACTION PLACEHOLDER TOGGLE LOGIC
 
 // false is block style placeholder
