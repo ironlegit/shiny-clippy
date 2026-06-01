@@ -27,8 +27,8 @@ function replaceWords(txt, words, replacement = "█████") {
   if (words.length === 0) return txt;
 
   const escaped = words.map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
-  const regex = new RegExp(`\\b(${escaped.join("|")})\\b`, "gi");
-
+  const regex = new RegExp(`\\b(${escaped.join("|")})`, "g");
+  console.log(regex);
   return txt.replace(regex, replacement);
 }
 
