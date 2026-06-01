@@ -37,35 +37,51 @@ function replacePattern(txt, regex, replacement = "█████") {
   return txt.replace(regex, replacement);
 }
 
+// Custom entity level function
+// NOTE: To debug Compromise tokens use console.log(JSON.stringify(nlp(txt).places().json(), null, 2));
 async function redactOrgs() {
-  redactTxtDOM((txt) =>
-    replaceWords(
-      txt,
-      nlp(txt).organizations().out("array"),
-      getPlaceholder("org"),
-    ),
-  );
+  redactTxtDOM((txt) => {
+    const organizations = nlp(txt)
+      .organizations()
+      .json()
+      .flatMap((phrase) => phrase.terms.map((term) => term.text));
+
+    return replaceWords(txt, organizations, getPlaceholder("org"));
+  });
 }
 
-// Custom entity level function
 nlp.plugin(compromiseDates);
 async function redactDates() {
-  redactTxtDOM((txt) =>
-    replaceWords(txt, nlp(txt).dates().out("array"), getPlaceholder("date")),
-  );
+  redactTxtDOM((txt) => {
+    const dates = nlp(txt)
+      .dates()
+      .json()
+      .map((phrase) => phrase.terms.map((term) => term.text).join(" "));
+
+    return replaceWords(txt, dates, getPlaceholder("date"));
+  });
 }
 
 async function redactEmails() {
-  redactTxtDOM((txt) =>
-    replaceWords(txt, nlp(txt).emails().out("array"), getPlaceholder("email")),
-  );
+  redactTxtDOM((txt) => {
+    const emails = nlp(txt)
+      .emails()
+      .json()
+      .map((phrase) => phrase.terms.map((term) => term.text).join(" "));
+
+    replaceWords(txt, emails, getPlaceholder("email"));
+  });
 }
 
-// TODO: Places ending with a point don't work, e.g. "I live in France."
 async function redactPlaces() {
-  redactTxtDOM((txt) =>
-    replaceWords(txt, nlp(txt).places().out("array"), getPlaceholder("place")),
-  );
+  redactTxtDOM((txt) => {
+    const places = nlp(txt)
+      .places()
+      .json()
+      .map((phrase) => phrase.terms.map((term) => term.text).join(" "));
+
+    return replaceWords(txt, places, getPlaceholder("place"));
+  });
 }
 
 async function redactPhones() {
