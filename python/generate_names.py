@@ -123,7 +123,7 @@ countries_api_top = (
 print(f"Top 20 countries:\n{countries_api_top}")
 
 top_20_names = extract_names(n=3000, cca2=countries_api_top)
-write_to_txt(top_20_names, "top_20_country_names.txt")
+write_to_txt(top_20_names, "top_20_countries_names.txt")
 
 ## Western names ----
 western_subregions = [
