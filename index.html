@@ -131,25 +131,35 @@
         </div>
 
         <h4>Name Regions</h4>
-        <div class="region-toggle">
+        <div class="region-toggle" onchange="toggleNameRegion()">
           <input
             type="radio"
             name="regionMode"
             id="western"
-            value="false"
+            value="western"
             checked
           />
-          <label for="West" data-tooltip="Western Countries">Western</label>
+          <label for="western" data-tooltip="Western Countries">Western</label>
 
-          <input type="radio" name="regionMode" id="euro" value="true" />
-          <label for="Europe" data-tooltip="European Countries">Europe</label>
+          <input
+            type="radio"
+            name="regionMode"
+            id="european"
+            value="european"
+          />
+          <label for="european" data-tooltip="European Countries">Europe</label>
 
-          <input type="radio" name="regionMode" id="asia" value="true" />
-          <label for="Asia" data-tooltip="Asian Countries">Asia</label>
+          <input type="radio" name="regionMode" id="asian" value="asian" />
+          <label for="asian" data-tooltip="Asian Countries">Asia</label>
 
-          <input type="radio" name="regionMode" id="asia" value="true" />
+          <input
+            type="radio"
+            name="regionMode"
+            id="top_20_countries"
+            value="top_20_countries"
+          />
           <label
-            for="International"
+            for="top_20_countries"
             data-tooltip="Top 20 most populated countries"
             >International</label
           >

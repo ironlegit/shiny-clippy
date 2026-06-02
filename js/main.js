@@ -91,16 +91,23 @@ async function redactPhones() {
 }
 
 // Cache for the name list (loaded once)
-let nameList = null;
+let nameList = {};
 
 // TODO: International names + ignore case leads to false positives
-async function loadNames() {
-  if (nameList) return nameList; // Return cached list if already loaded
+async function loadNames(filePath) {
+  if (!currentRegionPath) {
+    console.error("No region selected");
+    return;
+  }
+  // Return cached list if already loaded
+  if (nameList[currentRegionPath]) return nameList[currentRegionPath];
 
-  const response = await fetch("data/names.txt");
+  const response = await fetch(currentRegionPath);
   const text = await response.text();
-  nameList = text.split("\n").filter((name) => name.trim().length > 0);
-  return nameList;
+  const names = text.split("\n").filter((name) => name.trim().length > 0);
+
+  nameList[currentRegionPath] = names;
+  return names;
 }
 
 async function redactNames() {
