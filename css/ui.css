@@ -254,7 +254,6 @@
 [data-tooltip]:hover::after,
 [data-tooltip]:hover::before {
   opacity: 1;
-  font-size: 6px;
 }
 
 /* SIDE PANEL */
