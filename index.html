@@ -37,22 +37,28 @@
     <div class="clipboard-wrapper">
       <div class="tab-switcher">
         <button
+          class="tabBtn active"
           id="tabIn"
           onclick="switchToIn()"
-          class="active"
           data-tooltip="View the original text"
         >
           Original
         </button>
         <button
+          class="tabBtn"
           id="tabOut"
           onclick="switchToOut()"
           data-tooltip="View the redacted version"
         >
           Redacted
         </button>
-        <button id="flush" onclick="flushOutput()">
-          <i class="fas fa-toilet"></i>
+        <button
+          class="tabBtn"
+          id="flush"
+          onclick="flushOutput()"
+          data-tooltip="Flush Output"
+        >
+          <i class="fas fa-trash-can"></i>
         </button>
       </div>
 
@@ -63,12 +69,8 @@
           placeholder="Dump your text here..."
         ></div>
         <div id="clipboardOut" contenteditable="false"></div>
-        <button
-          class="tab-switcher"
-          id="copyBtn"
-          onclick="copyClipboardContent()"
-        >
-          Copy
+        <button class="tabBtn" id="copyBtn" onclick="copyClipboardContent()">
+          <i class="fa-solid fa-copy"></i>
         </button>
       </div>
     </div>

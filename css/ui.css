@@ -23,7 +23,7 @@
 }
 
 /* Shared tab button styles */
-.tab-switcher button {
+.tabBtn {
   padding: 6px 18px;
   border: 1px solid var(--border-color);
   border-bottom: none; /* open at the bottom toward the panel */
@@ -37,7 +37,7 @@
 }
 
 /* Active tab blends into the panel below */
-.tab-switcher button.active {
+.tabBtn.active {
   background-color: var(--clipboard-bg);
   z-index: 2;
 }
