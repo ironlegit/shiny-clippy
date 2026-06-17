@@ -6,13 +6,12 @@
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 8px;
-  gap: 8px;
+  gap: 8px; /* Gap between inner elements */
   background-color: var(--clipboard-bg-out);
   box-shadow: 0 0 15px var(--shadow-color);
   display: flex;
   flex-direction: column;
   flex-grow: 1; /* matches the old clipboard-panel flex behaviour */
-  margin-bottom: 20px;
   position: relative;
 }
 
@@ -87,18 +86,8 @@
   right: 10px;
 }
 
-/* Show on hover of the parent div */
-#clipboardOut:hover #copyBtn {
-  opacity: 1;
-}
-
-/* Keep visible briefly after clicking */
-#copyBtn.copied {
-  opacity: 1;
-}
-
 #redactPatterns {
-  flex: none; /* grow to fill remaining space*/
+  flex: none;
   min-height: 0; /* allow shrinking below natural size */
   height: 90px; /* */
   border-radius: 8px; /* Rounded corners */
@@ -117,12 +106,6 @@
   font-family: "Courier New", monospace;
   font-size: 16px;
   line-height: 1.5; /* Line spacing for readability */
-}
-
-/* REDACTION PATTERNS BOX SPECIFIC STYLES */
-#redactPatterns {
-  min-height: 25px; /* Smaller minimum height */
-  border-top: 1px solid var(--border-color); /* Top border for visual separation */
 }
 
 /* BUTTON CONTAINER */
@@ -310,6 +293,6 @@ body.dark-mode .redact-btn {
 #clipboardIn:empty::before,
 #redactPatterns:empty::before {
   content: attr(placeholder); /* Show the placeholder attribute content */
-  color: #888; /* Gray color */
+  color: #666; /* Gray color */
   font-style: italic; /* Italic text */
 }
