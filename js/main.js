@@ -27,6 +27,7 @@ function replaceWords(txt, words, replacement = "█████") {
   if (words.length === 0) return txt;
 
   const escaped = words.map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  // TODO: Custom word boundaries that may end with punctuation instead of just whitespace
   const regex = new RegExp(`\\b(${escaped.join("|")})`, "g");
   console.log(regex);
   return txt.replace(regex, replacement);
@@ -41,52 +42,57 @@ function replacePattern(txt, regex, replacement = "█████") {
 // NOTE: To debug Compromise tokens use console.log(JSON.stringify(nlp(txt).places().json(), null, 2));
 async function redactOrgs() {
   redactTxtDOM((txt) => {
-    const organizations = nlp(txt)
+    return nlp(txt)
       .organizations()
-      .json()
-      .flatMap((phrase) => phrase.terms.map((term) => term.text));
-
-    return replaceWords(txt, organizations, getPlaceholder("org"));
+      .replaceWith(getPlaceholder("organization"))
+      .all()
+      .text();
   });
 }
 
 nlp.plugin(compromiseDates);
+// TODO: Exclude weekdays option?
 async function redactDates() {
   redactTxtDOM((txt) => {
-    const dates = nlp(txt)
-      .dates()
-      .json()
-      .map((phrase) => phrase.terms.map((term) => term.text).join(" "));
+    const exclusionList = ["Preposition", "Determiner", "Ordinal", "Noun"];
+    const dates = nlp(txt).dates().json();
+    const filteredTerms = [];
 
-    return replaceWords(txt, dates, getPlaceholder("date"));
+    for (const date of dates) {
+      for (const term of date.terms) {
+        const skipTerm = term.tags.some((tag) => exclusionList.includes(tag));
+        if (!skipTerm) {
+          filteredTerms.push(term);
+        }
+      }
+    }
+    console.log(filteredTerms);
+    let out = txt;
+    console.log(out);
+    for (const term of filteredTerms) {
+      console.log(term.text);
+      out = out.replace(term.text, getPlaceholder("date"));
+    }
+    console.log(out);
+    return out;
   });
 }
 
 async function redactEmails() {
   redactTxtDOM((txt) => {
-    const emails = nlp(txt)
-      .emails()
-      .json()
-      .map((phrase) => phrase.terms.map((term) => term.text).join(" "));
-
-    replaceWords(txt, emails, getPlaceholder("email"));
+    return nlp(txt).emails().replaceWith(getPlaceholder("email")).all().text();
   });
 }
 
-async function redactPlaces() {
+async function redactPlaces(txt) {
   redactTxtDOM((txt) => {
-    const places = nlp(txt)
-      .places()
-      .json()
-      .map((phrase) => phrase.terms.map((term) => term.text).join(" "));
-
-    return replaceWords(txt, places, getPlaceholder("place"));
+    return nlp(txt).places().replaceWith(getPlaceholder("place")).all().text();
   });
 }
 
 async function redactPhones() {
   const phoneRegex =
-    /\s*(?:\+?(\d{1,4}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{3,4})(?: *x(\d+))?\s*/g;
+    /(?<!\S)(?:\+?(\d{1,4}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{3,4})(?: *x(\d+))?/g;
   redactTxtDOM((txt) => replacePattern(txt, phoneRegex));
 }
 
