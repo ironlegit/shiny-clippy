@@ -41,8 +41,8 @@ async function copyClipboardContent() {
 
   // Visual feedback
   const btn = document.getElementById("copyBtn");
-  btn.textContent = "Copied!";
-  setTimeout(() => (btn.textContent = "Copy"), 2000);
+  btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+  setTimeout(() => (btn.innerHTML = '<i class="fa-solid fa-copy"></i>'), 1500);
 }
 
 // TOGGLE NAME REGION
