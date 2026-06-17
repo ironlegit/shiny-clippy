@@ -54,6 +54,7 @@ nlp.plugin(compromiseDates);
 // TODO: Exclude weekdays option?
 async function redactDates() {
   redactTxtDOM((txt) => {
+    // Avoid redacting prepositions and weekedays and the like
     const exclusionList = ["Preposition", "Determiner", "Ordinal", "Noun"];
     const dates = nlp(txt).dates().json();
     const filteredTerms = [];
@@ -66,14 +67,14 @@ async function redactDates() {
         }
       }
     }
-    console.log(filteredTerms);
+
     let out = txt;
-    console.log(out);
+
     for (const term of filteredTerms) {
       console.log(term.text);
       out = out.replace(term.text, getPlaceholder("date"));
     }
-    console.log(out);
+
     return out;
   });
 }
@@ -100,7 +101,7 @@ async function redactPhones() {
 let nameList = {};
 
 // TODO: International names + ignore case leads to false positives
-async function loadNames(filePath) {
+async function loadNames() {
   if (!currentRegionPath) {
     console.error("No region selected");
     return;
