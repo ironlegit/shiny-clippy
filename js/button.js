@@ -33,6 +33,15 @@ function switchToIn() {
   document.getElementById("tabIn").classList.add("active");
 }
 
+// Flush button
+// TODO: Make a little animation so that its clear something happened!
+async function flushButtonAction() {
+  const btn = document.getElementById("flushBtn");
+  btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+  flushOutput();
+  setTimeout(() => (btn.innerHTML = '<i class="fas fa-trash-can"></i>'), 1500);
+}
+
 // COPY-PASTE BUTTON
 async function copyClipboardContent() {
   const content = document.getElementById("clipboardOut").innerText;
