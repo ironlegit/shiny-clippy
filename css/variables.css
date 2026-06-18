@@ -23,9 +23,11 @@
   --border-color: #ccc; /* Border color for elements in light mode */
   --gradient-light: linear-gradient(
     135deg,
-    #eb7893,
-    #7969f0
+    #c97d91,
+    #a070c0,
+    #7e72d9
   ); /* Light theme gradient (pink to purple) */
+  /* --gradient-light: linear-gradient(135deg, #eb7893, #b06ac8, #7969f0); */
   --gradient-dark: linear-gradient(
     135deg,
     #1a1a2e,
