@@ -299,3 +299,20 @@ body.dark-mode .redact-btn {
   color: #666; /* Gray color */
   font-style: italic; /* Italic text */
 }
+
+/* QUICKWIN FOR MOBILE */
+@media (max-width: 768px) {
+  .clipboard-wrapper {
+    width: 95%;
+  }
+  .tabBtn {
+    padding: 8px 12px;
+  }
+  #clipboardIn,
+  #redactPatterns {
+    font-size: 14px;
+  }
+  .side-panel {
+    width: 100%;
+  }
+}
