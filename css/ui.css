@@ -3,7 +3,7 @@
   width: calc(80% + 40px);
   max-width: 840px;
   margin: 0 auto;
-  border: 1px solid var(--border-color);
+  /* border: 1px solid var(--border-color); */
   border-radius: 8px;
   padding: 8px;
   gap: 8px; /* Gap between inner elements */
@@ -24,11 +24,11 @@
 /* Shared tab button styles */
 .tabBtn {
   padding: 6px 18px;
-  border: 1px solid var(--border-color);
-  border-bottom: none; /* open at the bottom toward the panel */
+  border: 0px solid var(--border-color);
   border-radius: 8px; /* rounded top corners only */
-  font-family: "Courier New", monospace;
-  font-size: 12px;
+  /* font-family: "Courier New", monospace; */
+  font-family: "Press Start 2P", cursive;
+  font-size: 8px;
   color: var(--theme-color);
   cursor: pointer;
   background-color: var(--clipboard-bg-out); /* inactive = darker */
@@ -56,15 +56,15 @@
   width: 100%;
   box-sizing: border-box;
   padding: 20px;
-  border: none;
-  border-top: 1px solid var(--border-color); /* divides tab bar from content */
+  /* border: 1px solid var(--border-color); */
   border-radius: 8px;
   color: var(--theme-color);
   outline: none;
   overflow-y: auto;
-  font-family: "Courier New", monospace;
+  /* font-family: "Courier New", monospace; */
+  font-family: "Syne Mono", monospace;
   font-size: 16px;
-  line-height: 1.5;
+  /* line-height: 1.5; */
   transition: all 0.3s ease;
   resize: none;
 }
@@ -103,7 +103,8 @@
   transition: all 0.3s ease; /* Smooth transitions for all properties */
   resize: none; /* Disable manual resizing */
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
-  font-family: "Courier New", monospace;
+  /* font-family: "Courier New", monospace; */
+  font-family: "Syne Mono", monospace;
   font-size: 16px;
   line-height: 1.5; /* Line spacing for readability */
 }
@@ -122,7 +123,8 @@
   background-color: rgba(200, 200, 200, 0.15); /* Slight gray shade */
   border-radius: 8px; /* Rounded corners */
   position: relative; /* For positioning the label */
-  font-family: "Courier New", monospace;
+  /* font-family: "Courier New", monospace; */
+  font-family: "Syne Mono", monospace;
 }
 
 /* BUTTON CONTAINER FOR CUSTOM TEXT */
@@ -191,7 +193,7 @@
   color: #ffffff; /* White text */
   border: none; /* No border */
   font-family: "Press Start 2P", cursive;
-  font-size: 12px;
+  font-size: 8px;
   cursor: pointer; /* Show hand cursor on hover */
   transition: all 0.3s ease; /* Smooth transitions for all properties */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
@@ -246,7 +248,8 @@
   left: 0; /* Aligns to the left edge */
   width: 250px; /* Adjust width as needed */
   height: 100vh; /* Spans full viewport height */
-  font-family: "Courier New", monospace;
+  /* font-family: "Courier New", monospace; */
+  font-family: "Syne Mono", monospace;
   color: var(--sidebar-text-color);
   background: var(--sidebar-color);
   padding: 20px;

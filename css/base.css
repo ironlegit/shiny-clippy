@@ -4,7 +4,8 @@ body {
   background: var(--gradient-light); /* Use the light gradient background */
   height: 100vh; /* Make sure the body fills the whole screen height */
   margin: 0; /* Remove default margins */
-  font-family: Arial, sans-serif; /* Default font for the page */
+  /* font-family: Arial, sans-serif; /* Default font for the page */
+  */font-family: "Syne Mono", monospace;
   transition: background 0.5s ease; /* Smooth transition when changing themes */
   color: var(--theme-color); /* Default text color */
   display: flex; /* Use flexbox for layout */
@@ -27,15 +28,22 @@ body.dark-mode {
 }
 
 /* HEADER STYLES */
-h1 {
+h1,
+h4 {
   text-align: center; /* Center the text */
-  margin: 20px auto; /* Space above and below, center horizontally */
+  margin: 10px auto; /* Space above and below, center horizontally */
   font-family: "Press Start 2P", cursive; /* Use the pixelated retro font */
   font-variant: small-caps; /* Convert text to small caps */
   font-size: 64px; /* Large font size */
   color: var(--theme-color); /* Use theme-aware text color */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
   transition: color 0.3s ease; /* Smooth color transition when themes change */
+}
+
+h4 {
+  font-family: "Syne Mono", monospace;
+  font-size: 16px;
+  letter-spacing: 12px;
 }
 
 /* FOOTER STYLES */
