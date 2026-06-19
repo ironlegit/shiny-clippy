@@ -26,10 +26,14 @@ async function redactTxtDOM(redactFunc, replacement = "█████") {
 function replaceWords(txt, words, replacement = "█████") {
   if (words.length === 0) return txt;
 
-  const escaped = words.map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  // Sort to avoid sub-string / prefix matching
+  const escaped = words
+    .sort((a, b) => b.length - a.length)
+    .map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+
   // TODO: Custom word boundaries that may end with punctuation instead of just whitespace
   const regex = new RegExp(`\\b(${escaped.join("|")})`, "g");
-  console.log(regex);
+
   return txt.replace(regex, replacement);
 }
 
