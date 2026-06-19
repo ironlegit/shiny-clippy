@@ -286,6 +286,12 @@ body.dark-mode .redact-btn {
 }
 
 @media (max-width: 640px) {
+  h1,
+  h3,
+  h4 {
+    font-size: 1.4em;
+  }
+
   .clipboard-wrapper {
     width: calc(100% - 16px); /* near-full width with small breathing room */
   }
