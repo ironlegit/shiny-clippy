@@ -3,7 +3,6 @@
   width: calc(80% + 40px);
   max-width: 840px;
   margin: 0 auto;
-  /* border: 1px solid var(--border-color); */
   border-radius: 8px;
   padding: 8px;
   gap: 8px; /* Gap between inner elements */
@@ -26,7 +25,6 @@
   padding: 6px 18px;
   border: 0px solid var(--border-color);
   border-radius: 8px; /* rounded top corners only */
-  /* font-family: "Courier New", monospace; */
   font-family: "Press Start 2P", cursive;
   font-size: 8px;
   color: var(--theme-color);
@@ -55,14 +53,13 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 35vh; /* Make div not grow indefinitely*/
+  max-height: 40vh; /* Make div not grow indefinitely*/
   overflow: hidden;
 }
 
 #clipboardIn,
 #clipboardOut,
 #redactPatterns {
-  /* font-family: "Courier New", monospace; */
   font-family: "Syne Mono", monospace;
   font-size: 14px;
   background-color: var(--clipboard-bg);
@@ -73,7 +70,7 @@
   transition: all 0.3s ease; /* Smooth transitions for all properties */
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
   padding: 20px; /* Internal spacing */
-  color: var(--theme-color); /* Text color (changes with theme) */  
+  color: var(--theme-color); /* Text color (changes with theme) */
   min-height: 0; /* Critical: Allows the textarea to shrink below its content height */
   max-height: 100%; /* Ensures it doesn't exceed the container */
 }
@@ -83,7 +80,6 @@
   flex: 1;
   width: 100%;
   box-sizing: border-box;
-  /* border: 1px solid var(--border-color); */
 }
 
 #clipboardOut {
@@ -93,12 +89,11 @@
 
 #redactPatterns {
   flex: none;
-  height: 10vh; 
+  height: 10vh;
   box-shadow: 0 0 15px var(--shadow-color); /* Shadow for depth (changes with theme) */
   margin: 0 auto; /* Center horizontally */
   width: 80%; /* Take 80% of the width */
   max-width: 800px; /* Maximum width */
-  /* border: 1px solid var(--border-color); /* Border color (changes with theme) */ */
 }
 
 /* BUTTON CONTAINER */
@@ -115,7 +110,6 @@
   background-color: rgba(200, 200, 200, 0.15); /* Slight gray shade */
   border-radius: 8px; /* Rounded corners */
   position: relative; /* For positioning the label */
-  /* font-family: "Courier New", monospace; */
   font-family: "Syne Mono", monospace;
 }
 
@@ -240,7 +234,6 @@
   left: 0; /* Aligns to the left edge */
   width: 250px; /* Adjust width as needed */
   height: 100vh; /* Spans full viewport height */
-  /* font-family: "Courier New", monospace; */
   font-family: "Syne Mono", monospace;
   color: var(--sidebar-text-color);
   background: var(--sidebar-color);
