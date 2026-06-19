@@ -22,22 +22,7 @@ async function redactTxtDOM(redactFunc, replacement = "█████") {
   switchToOut();
 }
 
-// Strategy 1: Use NLP-extracted entities and name lists with word boundaries
-function replaceWords(txt, words, replacement = "█████") {
-  if (words.length === 0) return txt;
-
-  // Sort to avoid sub-string / prefix matching
-  const escaped = words
-    .sort((a, b) => b.length - a.length)
-    .map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
-
-  // TODO: Custom word boundaries that may end with punctuation instead of just whitespace
-  const regex = new RegExp(`\\b(${escaped.join("|")})`, "g");
-
-  return txt.replace(regex, replacement);
-}
-
-// Strategy 2: Regex-based patterns
+// Strategy: Regex-based patterns
 function replacePattern(txt, regex, replacement = "█████") {
   return txt.replace(regex, replacement);
 }
@@ -104,6 +89,21 @@ async function redactDates() {
   });
 }
 
+// Strategy: Use NLP-extracted entities and name lists with word boundaries
+function replaceWords(txt, words, replacement = "█████") {
+  if (words.length === 0) return txt;
+
+  // Sort to avoid sub-string / prefix matching
+  const escaped = words
+    .sort((a, b) => b.length - a.length)
+    .map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+
+  // TODO: Custom word boundaries that may end with punctuation instead of just whitespace
+  const regex = new RegExp(`\\b(${escaped.join("|")})`, "g");
+
+  return txt.replace(regex, replacement);
+}
+
 // Cache for the name list (loaded once)
 let nameList = {};
 
@@ -121,6 +121,7 @@ async function loadNames() {
   const names = text.split("\n").filter((name) => name.trim().length > 0);
 
   nameList[currentRegionPath] = names;
+  console.log(names);
   return names;
 }
 
