@@ -39,6 +39,7 @@ async function flushButtonAction() {
   const btn = document.getElementById("flushBtn");
   btn.innerHTML = '<i class="fa-solid fa-check"></i>';
   flushOutput();
+  switchToIn();
   setTimeout(() => (btn.innerHTML = '<i class="fas fa-trash-can"></i>'), 1500);
 }
 
