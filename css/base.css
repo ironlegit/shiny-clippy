@@ -33,13 +33,13 @@ h4 {
   margin: 10px auto; /* Space above and below, center horizontally */
   font-family: "Press Start 2P", cursive; /* Use the pixelated retro font */
   font-variant: small-caps; /* Convert text to small caps */
-  font-size: 64px; /* Large font size */
   color: var(--theme-color); /* Use theme-aware text color */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
   transition: color 0.3s ease; /* Smooth color transition when themes change */
 }
 
 h1 {
+  font-size: 64px; /* Large font size */
   /* 3d FX */
   text-shadow:
     -4px -4px 0 rgba(126, 114, 217, 0.5),
