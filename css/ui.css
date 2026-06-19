@@ -288,12 +288,14 @@ body.dark-mode .redact-btn {
 @media (max-width: 640px) {
   h1 {
     font-size: 1.8rem;
+    letter-spacing: 4px;
   }
   h3 {
     font-size: 1.3rem;
   }
   h4 {
     font-size: 1.1rem;
+    letter-spacing: 3px;
   }
 
   .clipboard-wrapper {
