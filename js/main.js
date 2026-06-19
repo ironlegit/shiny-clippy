@@ -54,6 +54,27 @@ async function redactOrgs() {
   });
 }
 
+async function redactEmails() {
+  redactTxtDOM((txt) => {
+    return nlp(txt).emails().replaceWith(getPlaceholder("email")).all().text();
+  });
+}
+
+async function redactPlaces(txt) {
+  redactTxtDOM((txt) => {
+    console.log(nlp(txt).places());
+    return nlp(txt).places().replaceWith(getPlaceholder("place")).all().text();
+  });
+}
+
+async function redactPhones() {
+  const phoneRegex =
+    /(?<!\S)(?:\+?(\d{1,4}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{3,4})(?: *x(\d+))?/g;
+  redactTxtDOM((txt) => replacePattern(txt, phoneRegex));
+}
+
+// Handling dates with compromise date (distinct logic)
+
 nlp.plugin(compromiseDates);
 // TODO: Exclude weekdays option?
 async function redactDates() {
@@ -81,24 +102,6 @@ async function redactDates() {
 
     return out;
   });
-}
-
-async function redactEmails() {
-  redactTxtDOM((txt) => {
-    return nlp(txt).emails().replaceWith(getPlaceholder("email")).all().text();
-  });
-}
-
-async function redactPlaces(txt) {
-  redactTxtDOM((txt) => {
-    return nlp(txt).places().replaceWith(getPlaceholder("place")).all().text();
-  });
-}
-
-async function redactPhones() {
-  const phoneRegex =
-    /(?<!\S)(?:\+?(\d{1,4}))?[-. (]*(\d{2,3})[-. )]*(\d{3})[-. ]*(\d{3,4})(?: *x(\d+))?/g;
-  redactTxtDOM((txt) => replacePattern(txt, phoneRegex));
 }
 
 // Cache for the name list (loaded once)
