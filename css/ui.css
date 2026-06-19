@@ -304,12 +304,13 @@ body.dark-mode .redact-btn {
     justify-content: center;
     text-align: center;
     padding: 2rem;
+    background: #000000;
+    color: #f0f0f0;
   }
 
   /* Hide everything else */
   body > *:not(.mobile-block) {
-    background: #000000;
-    color: #f0f0f0;
+
     display: none !important;
   }
 }
