@@ -308,6 +308,7 @@ body.dark-mode .redact-btn {
 
   /* Hide everything else */
   body > *:not(.mobile-block) {
+    background: #000000;
     display: none !important;
   }
 }
