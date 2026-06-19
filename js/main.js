@@ -48,7 +48,7 @@ async function redactOrgs() {
   redactTxtDOM((txt) => {
     return nlp(txt)
       .organizations()
-      .replaceWith(getPlaceholder("organization"))
+      .replaceWith(getPlaceholder("org"))
       .all()
       .text();
   });
