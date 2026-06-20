@@ -1,10 +1,14 @@
 import pandas as pd
 import re
 import requests
+import os
 from names_dataset import NameDataset
 from pathlib import Path
+from dotenv import load_dotenv
+
 
 # NOTE: Debugging for edge cases: print(NameWrapper(nd.search("A-C")).describe)
+
 
 # Path handling
 base = Path(__file__).resolve().parent
@@ -91,14 +95,19 @@ def write_to_txt(names: pd.arrays.StringArray, file_name: str) -> None:
 
 # Get data ----
 
+# Secrets
+load_dotenv()
+restcountries_api_key = os.getenv("RESTCOUNTRIES_API_KEY")
+
 # Top 20 Countries ----
 
 # Countries
 # Select countries  from restcountries API
 # fields: https://gitlab.com/restcountries/restcountries/-/blob/master/FIELDS.md
 fields = ["cca2", "population", "region", "subregion"]
-url = f"https://restcountries.com/v3.1/all?fields={','.join(fields)}"
-response = requests.get(url)
+headers = {"Authorization": f"Bearer {restcountries_api_key}"}
+url = f"https://api.restcountries.com/countries/v5?response_fields={','.join(fields)}"
+response = requests.get(url, headers=headers)
 data = response.json()
 
 countries_api = pd.json_normalize(data)
@@ -108,6 +117,8 @@ nd = NameDataset()
 countries_names = [c.alpha_2 for c in nd.get_country_codes()]
 
 # Remove countries not present in names dataset
+print(countries_api)
+exit()
 countries_api = countries_api.loc[countries_api["cca2"].isin(countries_names)]
 
 
@@ -134,6 +145,8 @@ western_subregions = [
     "Central America",
 ]
 
+print(countries_api["subregion"].unique())
+exit()
 western_countries = countries_api[
     countries_api["subregion"].str.contains("|".join(western_subregions))
 ]["cca2"].tolist()
