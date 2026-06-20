@@ -30,7 +30,7 @@
     </div>
 
     <h1>Re🦆tor</h1>
-    <h4>Mask-Sanitize-Veil</h4>
+    <h4>Text Redaction Tool</h4>
     <!-- SIDE PANEL TOGGLE -->
     <div class="toggle-container left">
       <button id="sidebar-btn" class="toggle-btn" onclick="togglePanel()">
@@ -89,13 +89,49 @@
 
     <!-- BUTTON CONTAINER PRESET -->
     <div class="button-container-exp">
-      <span class="experimental-label">THEMATIC REDACTORS (EXPERIMENTAL)</span>
-      <button class="redact-btn" onclick="redactOrgs()">Orgs</button>
-      <button class="redact-btn" onclick="redactNames()">Names</button>
-      <button class="redact-btn" onclick="redactDates()">Dates</button>
-      <button class="redact-btn" onclick="redactPhones()">Phones</button>
-      <button class="redact-btn" onclick="redactEmails()">Emails</button>
-      <button class="redact-btn" onclick="redactPlaces()">Places</button>
+      <span class="experimental-label">THEMATIC REDACTORS</span>
+      <button
+        class="redact-btn"
+        onclick="redactOrgs()"
+        data-tooltip="Redact common organizations"
+      >
+        Orgs
+      </button>
+      <button
+        class="redact-btn"
+        onclick="redactNames()"
+        data-tooltip="Redact common first and last names (see sidebar). \A Cave: Prone to false-positives!"
+      >
+        Names
+      </button>
+      <button
+        class="redact-btn"
+        onclick="redactDates()"
+        data-tooltip="Redact common date formats"
+      >
+        Dates
+      </button>
+      <button
+        class="redact-btn"
+        onclick="redactPhones()"
+        data-tooltip="Redact wide-number of phone number formats"
+      >
+        Phones
+      </button>
+      <button
+        class="redact-btn"
+        onclick="redactEmails()"
+        data-tooltip="Redact email addresses"
+      >
+        Emails
+      </button>
+      <button
+        class="redact-btn"
+        onclick="redactPlaces()"
+        data-tooltip="Redact country and city names"
+      >
+        Places
+      </button>
     </div>
 
     <!-- REDACTION PATTERNS TEXT AREA -->
