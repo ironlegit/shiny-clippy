@@ -5,7 +5,7 @@ description = "Generate first and last names from different regions using names_
 authors = [{ name = "LionelRohner", email = "lionel.rohner@gmail.com" }]
 license = "MIT"
 requires-python = ">=3.14"
-dependencies = ["pandas (>=3.0.3,<4.0.0)", "names-dataset (>=3.3.1,<4.0.0)"]
+dependencies = ["pandas (>=3.0.3,<4.0.0)", "names-dataset (>=3.3.1,<4.0.0)", "requests (>=2.34.2,<3.0.0)"]
 
 [tool.poetry]
 package-mode = false
