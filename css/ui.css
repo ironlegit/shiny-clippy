@@ -291,8 +291,8 @@ body.dark-mode .redact-btn {
   display: none;
 }
 
+/* MOBILE FIX */
 @media (max-width: 768px) {
-  /* Show the blocker */
   .mobile-block {
     display: flex;
     position: fixed;
@@ -309,72 +309,6 @@ body.dark-mode .redact-btn {
 
   /* Hide everything else */
   body > *:not(.mobile-block) {
-
     display: none !important;
   }
 }
-
-/* @media (max-width: 640px) { */
-/*   h1 { */
-/*     font-size: 1.8rem; */
-/*     letter-spacing: 4px; */
-/*   } */
-/*   h3 { */
-/*     font-size: 1.3rem; */
-/*   } */
-/*   h4 { */
-/*     font-size: 1.1rem; */
-/*     letter-spacing: 3px; */
-/*   } */
-/**/
-/*   .clipboard-wrapper { */
-/*     width: calc(100% - 16px); /* near-full width with small breathing room */ */
-/*   } */
-/**/
-/*   .tab-switcher { */
-/*     flex-wrap: wrap; /* tabs won't overflow if there are several */ */
-/*   } */
-/**/
-/*   .tabBtn { */
-/*     flex: 1; /* spread tabs evenly */ */
-/*     text-align: center; */
-/*     padding: 10px 8px; /* taller touch target */ */
-/*   } */
-/**/
-/*   /* Pull copy button out of absolute flow so it doesn't cover tabs */ */
-/*   #copyBtn { */
-/*     position: static; */
-/*     align-self: flex-end; */
-/*     margin-bottom: 4px; */
-/*   } */
-/**/
-/*   .clipboard-panel { */
-/*     max-height: 55vh; /* a bit more room on a tall phone screen */ */
-/*   } */
-/**/
-/*   #redactPatterns, */
-/*   .button-container, */
-/*   .button-container-exp { */
-/*     width: 100%; */
-/*   } */
-/**/
-/*   .button-container-exp { */
-/*     padding: 24px 12px; /* cut the aggressive 40px top/bottom */ */
-/*     gap: 12px; */
-/*   } */
-/**/
-/*   .redact-btn { */
-/*     padding: 12px 16px; /* larger tap area */ */
-/*     flex: 1 1 auto; /* buttons fill row and wrap naturally */ */
-/*   } */
-/**/
-/*   .side-panel { */
-/*     width: 85vw; /* less than 250px on small phones */ */
-/*   } */
-/**/
-/*   /* Tooltips are hover-only — hide them on touch devices */ */
-/*   [data-tooltip]::after, */
-/*   [data-tooltip]::before { */
-/*     display: none; */
-/*   } */
-/* } */
