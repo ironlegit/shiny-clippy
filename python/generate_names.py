@@ -104,30 +104,29 @@ restcountries_api_key = os.getenv("RESTCOUNTRIES_API_KEY")
 # Countries
 # Select countries  from restcountries API
 # fields: https://gitlab.com/restcountries/restcountries/-/blob/master/FIELDS.md
-fields = ["cca2", "population", "region", "subregion"]
+fields = ["codes.alpha_2", "population", "region", "subregion"]
 headers = {"Authorization": f"Bearer {restcountries_api_key}"}
 url = f"https://api.restcountries.com/countries/v5?response_fields={','.join(fields)}"
 response = requests.get(url, headers=headers)
 data = response.json()
 
-countries_api = pd.json_normalize(data)
+countries_api = pd.json_normalize(data, record_path=["data", "objects"])
 
 # Names
 nd = NameDataset()
 countries_names = [c.alpha_2 for c in nd.get_country_codes()]
 
 # Remove countries not present in names dataset
-print(countries_api)
-exit()
-countries_api = countries_api.loc[countries_api["cca2"].isin(countries_names)]
-
+countries_api = countries_api.loc[
+    countries_api["codes.alpha_2"].isin(countries_names)
+]
 
 # Hyperparams for output
 n = 3000  # per country
 top_n_countries = 20
 countries_api_top = (
     countries_api.sort_values("population", ascending=False)
-    .head(top_n_countries)["cca2"]
+    .head(top_n_countries)["codes.alpha_2"]
     .tolist()
 )
 
@@ -149,7 +148,7 @@ print(countries_api["subregion"].unique())
 exit()
 western_countries = countries_api[
     countries_api["subregion"].str.contains("|".join(western_subregions))
-]["cca2"].tolist()
+]["codes.alpha_2"].tolist()
 
 print(f"Western countries:\n{western_countries}")
 
@@ -160,7 +159,7 @@ write_to_txt(western_names, "western_names.txt")
 ## European names ----
 european_countries = countries_api[
     countries_api["region"].str.contains("Europe")
-]["cca2"].tolist()
+]["codes.alpha_2"].tolist()
 
 print(f"European countries:\n{european_countries}")
 
@@ -169,7 +168,7 @@ write_to_txt(european_names, "european_names.txt")
 
 ## Asian names ----
 asian_countries = countries_api[countries_api["region"].str.contains("Asia")][
-    "cca2"
+    "codes.alpha_2"
 ].tolist()
 
 print(f"Asian countries: {asian_countries}")
