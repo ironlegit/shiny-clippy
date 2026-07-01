@@ -95,9 +95,7 @@ def write_to_txt(names: pd.arrays.StringArray, file_name: str) -> None:
 
 # Get data ----
 
-# Secrets
-load_dotenv()
-restcountries_api_key = os.getenv("RESTCOUNTRIES_API_KEY")
+# TODO: Change REST countries API to something easier
 
 # Top 20 Countries ----
 
@@ -144,7 +142,7 @@ western_subregions = [
     "Central America",
 ]
 
-print(countries_api["subregion"].unique())
+print(countries_api[countries_api["subregion"] == "Algeria"])
 exit()
 western_countries = countries_api[
     countries_api["subregion"].str.contains("|".join(western_subregions))
