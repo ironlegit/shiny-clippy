@@ -8,7 +8,7 @@
   padding: 8px;
   gap: 8px; /* Gap between inner elements */
   background-color: var(--clipboard-bg-out);
-  box-shadow: 0 0 15px var(--shadow-color);
+  box-shadow: var(--shadow-panel);
   display: flex;
   flex-direction: column;
   flex-grow: 1; /* matches the old clipboard-panel flex behaviour */
@@ -24,9 +24,9 @@
 /* Shared tab button styles */
 .tabBtn {
   padding: 6px 18px;
-  border: 0px solid var(--border-color);
+  border: 0px;
   border-radius: 8px; /* rounded top corners only */
-  font-family: "Press Start 2P", cursive;
+  font-family: var(--font-pixel);
   font-size: 8px;
   color: var(--theme-color);
   cursor: pointer;
@@ -61,14 +61,14 @@
 #clipboardIn,
 #clipboardOut,
 #redactPatterns {
-  font-family: "Syne Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 14px;
   background-color: var(--clipboard-bg);
   outline: none; /* Remove default focus outline */
   border-radius: 8px; /* Rounded corners */
   line-height: 1.5; /* Line spacing for readability */
   resize: none; /* Disable manual resizing */
-  transition: all 0.3s ease; /* Smooth transitions for all properties */
+  transition: var(--transition-base); /* Smooth transitions for all properties */
   overflow-y: auto; /* Enable vertical scrolling if content overflows */
   padding: 20px; /* Internal spacing */
   color: var(--theme-color); /* Text color (changes with theme) */
@@ -91,7 +91,7 @@
 #redactPatterns {
   flex: none;
   height: 10vh;
-  box-shadow: 0 0 15px var(--shadow-color); /* Shadow for depth (changes with theme) */
+  box-shadow: var(--shadow-panel); /* Shadow for depth (changes with theme) */
   margin: 0 auto; /* Center horizontally */
   width: 80%; /* Take 80% of the width */
   max-width: 800px; /* Maximum width */
@@ -111,7 +111,7 @@
   background-color: rgba(200, 200, 200, 0.15); /* Slight gray shade */
   border-radius: 8px; /* Rounded corners */
   position: relative; /* For positioning the label */
-  font-family: "Syne Mono", monospace;
+  font-family: var(--font-mono);
 }
 
 /* BUTTON CONTAINER FOR CUSTOM TEXT */
@@ -154,7 +154,7 @@
 .placeholder-toggle {
   width: 100%; /* forces a new line in the flex container */
   text-align: center;
-  font-family: "Press Start 2P", cursive;
+  font-family: var(--font-pixel);
   font-size: 12px;
 }
 
@@ -179,10 +179,10 @@
   background: var(--theme-color); /* Button background matches text color */
   color: #ffffff; /* White text */
   border: none; /* No border */
-  font-family: "Press Start 2P", cursive;
+  font-family: var(--font-pixel);
   font-size: 8px;
   cursor: pointer; /* Show hand cursor on hover */
-  transition: all 0.3s ease; /* Smooth transitions for all properties */
+  transition: var(--transition-base); /* Smooth transitions for all properties */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
@@ -250,7 +250,6 @@
   z-index: 1000;
 }
 
-/* Show panel when active */
 .side-panel.active {
   transform: translateX(0);
 }

@@ -2,6 +2,8 @@
 :root {
   --font-mono: "Syne Mono", monospace;
   --font-pixel: "Press Start 2P", cursive;
+  --transition-base: all 0.3s ease;
+  --shadow-panel: 0 0 15px var(--shadow-color);
   --theme-color: #18011f; /* Default h1 and btn color for light mode */
   --theme-color-dark: #f0f0f0;
   --clipboard-bg: rgba(
