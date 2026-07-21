@@ -15,7 +15,22 @@ function toggleDarkMode() {
 // TOGGLE SIDE PANEL
 function togglePanel() {
   const panel = document.querySelector(".side-panel");
+  const backdrop = document.querySelector(".panel-backdrop");
+  const isOpening = !panel.classList.contains("active");
+
   panel.classList.toggle("active");
+  backdrop.classList.toggle("active");
+
+  if (isOpening) {
+    panel.querySelector(".close-btn").focus();
+    document.addEventListener("keydown", closeOnEscape);
+  } else {
+    document.removeEventListener("keydown", closeOnEscape);
+  }
+}
+
+function closeOnEscape(e) {
+  if (e.key === "Escape") togglePanel();
 }
 
 // CLIPBOARD TOGGLE IN / OUT
