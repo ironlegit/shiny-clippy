@@ -1,5 +1,7 @@
 /* CSS VARIABLES SECTION */
 :root {
+  --font-mono: "Syne Mono", monospace;
+  --font-pixel: "Press Start 2P", cursive;
   --theme-color: #18011f; /* Default h1 and btn color for light mode */
   --theme-color-dark: #f0f0f0;
   --clipboard-bg: rgba(

@@ -230,24 +230,53 @@
 
 /* SIDE PANEL */
 .side-panel {
-  position: fixed; /* Stays in place even when scrolling */
-  top: 0; /* Starts at the top of the page */
-  left: 0; /* Aligns to the left edge */
-  width: 250px; /* Adjust width as needed */
-  height: 100vh; /* Spans full viewport height */
-  font-family: "Syne Mono", monospace;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 250px;
+  max-width: 85vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+  font-family: var(--font-mono);
   color: var(--sidebar-text-color);
   background: var(--sidebar-color);
   padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
-  transform: translateX(-100%); /* Hide by default (off-screen) */
-  transition: transform 0.3s ease; /* Smooth slide-in animation */
-  z-index: 1000; /* Ensures it appears above other content */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  will-change: transform;
+  z-index: 1000;
 }
 
 /* Show panel when active */
 .side-panel.active {
-  transform: translateX(0); /* Slide in */
+  transform: translateX(0);
+}
+
+.panel-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+  z-index: 999;
+}
+
+.panel-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .side-panel,
+  .panel-backdrop {
+    transition: none;
+  }
 }
 
 /* Close button styling */
@@ -262,6 +291,74 @@
 /* Panel content styling */
 .panel-content {
   margin-top: 20px;
+}
+
+.panel-title {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin: 0 0 20px;
+}
+
+.panel-section {
+  margin-bottom: 20px;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--sidebar-text-color);
+  opacity: 0.65;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 8px;
+}
+
+.pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* hide the native radio visually but keep it accessible */
+.pill-group input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.pill {
+  cursor: pointer;
+  user-select: none;
+  border-radius: 6px;
+  font-size: 13px;
+  padding: 6px 12px;
+  color: var(--sidebar-text-color);
+  opacity: 0.7;
+  background: transparent;
+  transition:
+    background 0.15s ease,
+    opacity 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.pill:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* selected state */
+.pill-group input[type="radio"]:checked + .pill {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.2);
+}
+
+/* keyboard focus ring — only shows for keyboard users, not mouse clicks */
+.pill-group input[type="radio"]:focus-visible + .pill {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 
 /* BUTTON STYLES IN DARK MODE */
