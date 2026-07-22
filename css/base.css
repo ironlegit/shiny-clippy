@@ -55,6 +55,8 @@ h4 {
 
 /* FOOTER STYLES */
 .footer {
+  display: flex;
+  flex-direction: column;
   text-align: center; /* Center the text */
   padding: 10px; /* Internal spacing */
   margin-top: auto; /* Push to bottom */
@@ -62,6 +64,8 @@ h4 {
   font-family: "Consolas", monospace; /* Monospace font */
   font-size: 10px; /* Small font size */
   transition: color 0.3s ease; /* Smooth color transition */
+  align-items: center;
+  gap: 6px;
 }
 
 /* FOOTER STYLES IN DARK MODE */
@@ -78,4 +82,16 @@ body.dark-mode .footer-light {
 }
 body.dark-mode .footer-dark {
   display: block; /* Show dark mode text in dark mode */
+}
+
+/* FOOTER GITHUB */
+.footer-github {
+  color: inherit;
+  display: inline-flex;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.footer-github:hover {
+  opacity: 1;
 }
