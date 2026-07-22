@@ -5,10 +5,20 @@ Reducktor is a web tool that can be used to redact sensitive information from te
 ## Features
 
 - Simple and lightweight HTML page.
-- Preserves text formatting when copying from VM to host.
 - **Thematic Redactors**: Use thematic redaction options (based on [Compromise](https://github.com/spencermountain/compromise)) to remove sensitive information from your text.
 - **Name Redactor**: Use experimental name redaction to remove common first and last names from different regions. The names were selected from the Python [names-dataset](https://pypi.org/project/names-dataset/).
 - **Custom Redactor**: Enter custom strings to remove sensitive information from your text.
+
+## Dependencies
+
+The thematic redactors rely on the JS modules `compromise` and `compromise-dates`.
+Fixed versions are vendored locally under `/vendor`. See `vendor/MANIFEST.md` for
+exact versions and sources.
+
+Dependabot tracks upstream releases and opens a PR when a newer version is
+available. Updates must be vendored (downloaded and re-verified) manually.
+
+Check for vulnerabilities on [socket.dev](socket.dev) to be safe.
 
 ## Local Testing
 
